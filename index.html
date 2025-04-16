@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Fork&fire</h1>
+    <label>Email: <input class="email" type="text"></label><br><br>
+    <label>Senha: <input class="senha" type="password"></label><br><br>
+    <button onclick="logar()">Login</button>
+    <button>Cadastrar</button>
+</body>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+<script>
+  // Configuração do Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyCwrV3eXmft-FAQNHxbg2EYVYHdaFzAhiI",
+    authDomain: "trabalho-jupe.firebaseapp.com",
+    projectId: "trabalho-jupe",
+    storageBucket: "trabalho-jupe.appspot.com",
+    messagingSenderId: "1057718014194",
+    appId: "1:1057718014194:web:e12b0cdb44e6f3c5a3006b",
+    measurementId: "G-RN4TCE9PSV"
+  };
+
+  // Inicializar o Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  function logar() {
+    const email = document.querySelector(".email").value;
+    const senha = document.querySelector(".senha").value;
+    console.log(email)
+    console.log(senha)
+
+    auth.signInWithEmailAndPassword(email, senha)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Usuário logado:", user.email);
+        alert("Login realizado com sucesso!");
+      })
+      .catch((erro) => {
+        console.error("Erro ao logar:", erro.code, erro.message);
+        alert("Erro ao fazer login: " + erro.message);
+      });
+  }
+</script>
+</html>
