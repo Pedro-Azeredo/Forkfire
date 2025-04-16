@@ -1,0 +1,136 @@
+<!-- viewer/index.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Receitas Culinárias</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Cabeçalho Dinâmico -->
+    <header id="header">
+      <h1>Receitas Culinárias</h1>
+      <nav id="nav-buttons">
+        <!-- Botões serão carregados via JS conforme estado de login -->
+      </nav>
+      <div id="user-info" class="hidden">
+        <img id="user-photo" src="" alt="Foto do usuário" />
+        <span id="user-name"></span>
+        <button id="btn-logout">Sair</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Seção de Login/Cadastro -->
+      <div id="login-section" class="div-ativa">
+        <h2>Login</h2>
+        <form id="form-login">
+          <input type="email" id="login-email" placeholder="E-mail" required />
+          <input
+            type="password"
+            id="login-senha"
+            placeholder="Senha"
+            required
+          />
+          <button type="submit">Entrar</button>
+        </form>
+        <button id="btn-show-register">Criar conta</button>
+      </div>
+
+      <!-- Seção de Cadastro de Usuário -->
+      <div id="register-section" class="div-oculta">
+        <h2>Cadastro</h2>
+        <form id="form-register">
+          <input type="text" id="register-nome" placeholder="Nome" required />
+          <input
+            type="email"
+            id="register-email"
+            placeholder="E-mail"
+            required
+          />
+          <input
+            type="password"
+            id="register-senha"
+            placeholder="Senha"
+            required
+          />
+          <button type="submit">Cadastrar</button>
+        </form>
+      </div>
+
+      <!-- Listagem de Receitas -->
+      <div id="receitas-section" class="div-oculta">
+        <div class="search-bar">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Pesquisar receitas..."
+          />
+          <button id="btn-search">Buscar</button>
+          <button id="btn-nova-receita" class="btn-admin">Nova Receita</button>
+        </div>
+        <div id="receitas-list">
+          <!-- Receitas serão carregadas via JS -->
+        </div>
+      </div>
+
+      <!-- Formulário de Receita -->
+      <div id="receita-form-section" class="div-oculta">
+        <h2 id="receita-form-title">Nova Receita</h2>
+        <form id="form-receita">
+          <input type="hidden" id="receita-id" />
+          <input
+            type="text"
+            id="receita-titulo"
+            placeholder="Título"
+            required
+          />
+          <textarea
+            id="receita-ingredientes"
+            placeholder="Ingredientes (um por linha)"
+            required
+          ></textarea>
+          <input
+            type="number"
+            id="receita-tempo"
+            placeholder="Tempo de Preparo (min)"
+            required
+          />
+          <textarea
+            id="receita-modo"
+            placeholder="Modo de Preparo"
+            required
+          ></textarea>
+          <select id="receita-categoria" required>
+            <option value="">Selecione uma categoria</option>
+            <option value="Sobremesa">Sobremesa</option>
+            <option value="Prato Principal">Prato Principal</option>
+            <option value="Acompanhamento">Acompanhamento</option>
+          </select>
+          <button type="submit" id="btn-salvar-receita">Salvar</button>
+          <button type="button" id="btn-cancelar-receita">Cancelar</button>
+        </form>
+      </div>
+
+      <!-- Modal de Avaliação -->
+      <div id="avaliacao-modal" class="modal hidden">
+        <div class="modal-content">
+          <span class="close-modal">&times;</span>
+          <h3>Avaliar Receita</h3>
+          <div class="rating-stars">
+            <!-- Estrelas de 1 a 5 -->
+            <span data-value="1">★</span>
+            <span data-value="2">★</span>
+            <span data-value="3">★</span>
+            <span data-value="4">★</span>
+            <span data-value="5">★</span>
+          </div>
+          <button id="btn-submit-avaliacao">Enviar Avaliação</button>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="/controller/main.js"></script>
+  </body>
+</html>
