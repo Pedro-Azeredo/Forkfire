@@ -4,17 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="divLogin" style="display: block;">
     <h1>Fork&fire</h1>
-    <label>Email: <input class="email" type="text"></label><br><br>
-    <label>Senha: <input class="senha" type="password"></label><br><br>
+    <h4>Login</h4>
+    <label>Email: <input class="email" type="text"></label>
+    <label>Senha: <input class="senha" type="password"></label>
     <button onclick="logar()">Login</button>
-    <button>Cadastrar</button>
+    <button onclick="divCadastrar()">Cadastrar</button>
+  </div>
+
+  <div class="divCadastro" style="display: none;">
+    <h1>Fork&fire</h1>
+    <h4>Cadastro</h4>
+    <label>Nome: <input class="nomeCadastro" type="text"></label>
+    <label>Email: <input class="emailCadastro" type="text"></label>
+    <label>Senha: <input class="senhaCadastro" type="password"></label>
+    <label>Confimar senha: <input class="senhaCadastro" type="password"></label>
+    <button onclick="divCadastrar()">Voltar</button>
+    <button onclick="cadastrar()">Cadastrar</button>
+  </div>
+
 </body>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
 <script>
   // Configuração do Firebase
@@ -31,22 +48,67 @@
   // Inicializar o Firebase
   const app = firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
+  const db = firebase.database();
+
+  //comecando os scripts 
+
+  function divCadastrar(){
+    const divLogin = document.getElementsByClassName("divLogin")[0];
+    const divCadastrar = document.getElementsByClassName("divCadastro")[0];
+
+    if (divCadastrar.style.display === "none"){
+      divCadastrar.style.display = "block"
+      divLogin.style.display = "none"
+    }
+    else if (divCadastrar.style.display === "block"){
+      divCadastrar.style.display = "none"
+      divLogin.style.display = "block"
+    }
+    else{
+      alert("erro")
+    }
+  }
 
   function logar() {
     const email = document.querySelector(".email").value;
     const senha = document.querySelector(".senha").value;
-    console.log(email)
-    console.log(senha)
 
     auth.signInWithEmailAndPassword(email, senha)
       .then((userCredential) => {
         const user = userCredential.user;
         console.log("Usuário logado:", user.email);
-        alert("Login realizado com sucesso!");
+        alert("Usuario Logado com sucesso!");
       })
       .catch((erro) => {
         console.error("Erro ao logar:", erro.code, erro.message);
         alert("Erro ao fazer login: " + erro.message);
+      });
+  }
+
+  function cadastrar() {
+    const email = document.querySelector(".emailCadastro").value;
+    const senha = document.querySelector(".senhaCadastro").value;
+    const nome = document.querySelector(".nomeCadastro").value;
+
+    auth.createUserWithEmailAndPassword(email, senha)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log("Usuário Cadastrado:", user.email);
+
+        db.ref('usuarios/' + user.uid).set({
+          id: user.uid,
+          nome: nome,
+          email: email,
+          senha: senha,
+          fotoPerfil: "",
+          funcao: "USUARIO"
+        });
+
+        alert("Cadastro realizado com sucesso!");
+      })
+      .catch((erro) => {
+        console.error("Erro ao Cadastrar:", erro.code, erro.message);
+        alert("Erro ao fazer Cadastro: " + erro.message);
       });
   }
 </script>
