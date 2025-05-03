@@ -1,115 +1,271 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div class="divLogin" style="display: block;">
-    <h1>Fork&fire</h1>
-    <h4>Login</h4>
-    <label>Email: <input class="email" type="text"></label>
-    <label>Senha: <input class="senha" type="password"></label>
-    <button onclick="logar()">Login</button>
-    <button onclick="divCadastrar()">Cadastrar</button>
-  </div>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="divLogin" style="display: block">
+      <h1>Fork&fire</h1>
+      <h4>Login</h4>
+      <label>Email: <input class="email" type="text" required /></label>
+      <label>Senha: <input class="senha" type="password" required /></label>
+      <button onclick="logar()">Login</button>
+      <button onclick="divCadastrar()">Cadastrar</button>
+      <p class="erroLogin esconder" style="font-size: 0.8rem; color: firebrick">
+        Alou
+      </p>
+    </div>
 
-  <div class="divCadastro" style="display: none;">
-    <h1>Fork&fire</h1>
-    <h4>Cadastro</h4>
-    <label>Nome: <input class="nomeCadastro" type="text"></label>
-    <label>Email: <input class="emailCadastro" type="text"></label>
-    <label>Senha: <input class="senhaCadastro" type="password"></label>
-    <label>Confimar senha: <input class="senhaCadastro" type="password"></label>
-    <button onclick="divCadastrar()">Voltar</button>
-    <button onclick="cadastrar()">Cadastrar</button>
-  </div>
+    <div class="divCadastro" style="display: none">
+      <h1>Fork&fire</h1>
+      <h4>Cadastro</h4>
+      <label
+        >Nome:
+        <input class="nomeCadastro" type="text" name="nomeCadastro" required
+      /></label>
+      <label
+        >Email:
+        <input class="emailCadastro" type="text" name="emailCadastro" required
+      /></label>
+      <label
+        >Senha:
+        <input
+          class="senhaCadastro"
+          type="password"
+          name="senhaCadastro"
+          required
+      /></label>
+      <label
+        >Confimar senha:
+        <input class="segundaSenhaCadastro" type="password" required
+      /></label>
+      <button onclick="divCadastrar()">Voltar</button>
+      <button onclick="cadastrar()">Cadastrar</button>
+      <p
+        class="erroCadastro esconder"
+        style="font-size: 0.8rem; color: firebrick"
+      >
+        As senhas precisam ser iguais!
+      </p>
+    </div>
+  </body>
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
 
-</body>
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+  <script>
+    // Configuração do Firebase
+    const firebaseConfig = {
+      apiKey: 'AIzaSyCwrV3eXmft-FAQNHxbg2EYVYHdaFzAhiI',
+      authDomain: 'trabalho-jupe.firebaseapp.com',
+      projectId: 'trabalho-jupe',
+      storageBucket: 'trabalho-jupe.appspot.com',
+      messagingSenderId: '1057718014194',
+      appId: '1:1057718014194:web:e12b0cdb44e6f3c5a3006b',
+      measurementId: 'G-RN4TCE9PSV',
+    };
 
-<script>
-  // Configuração do Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyCwrV3eXmft-FAQNHxbg2EYVYHdaFzAhiI",
-    authDomain: "trabalho-jupe.firebaseapp.com",
-    projectId: "trabalho-jupe",
-    storageBucket: "trabalho-jupe.appspot.com",
-    messagingSenderId: "1057718014194",
-    appId: "1:1057718014194:web:e12b0cdb44e6f3c5a3006b",
-    measurementId: "G-RN4TCE9PSV"
-  };
+    // Inicializar o Firebase
+    const app = firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.database();
 
-  // Inicializar o Firebase
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  const db = firebase.database();
+    //escutar quando o enter é pressionado
 
-  //comecando os scripts 
+    addEventListener('keydown', function (event) {
+      if (
+        event.key === 'Enter' &&
+        document.getElementsByClassName('divLogin')[0].style.display === 'block'
+      ) {
+        event.preventDefault();
+        logar();
+      } else if (
+        event.key === 'Enter' &&
+        document.getElementsByClassName('divCadastro')[0].style.display ===
+          'block'
+      ) {
+        event.preventDefault();
+        cadastrar();
+      }
+    });
 
-  function divCadastrar(){
-    const divLogin = document.getElementsByClassName("divLogin")[0];
-    const divCadastrar = document.getElementsByClassName("divCadastro")[0];
+    //comecando as funçoes
 
-    if (divCadastrar.style.display === "none"){
-      divCadastrar.style.display = "block"
-      divLogin.style.display = "none"
+    function divCadastrar() {
+      const divLogin = document.getElementsByClassName('divLogin')[0];
+      const divCadastrar = document.getElementsByClassName('divCadastro')[0];
+
+      if (divCadastrar.style.display === 'none') {
+        divCadastrar.style.display = 'block';
+        divLogin.style.display = 'none';
+        limparEstiloEdado();
+      } else if (divCadastrar.style.display === 'block') {
+        divCadastrar.style.display = 'none';
+        divLogin.style.display = 'block';
+        limparEstiloEdado();
+      } else {
+        alert('erro');
+      }
     }
-    else if (divCadastrar.style.display === "block"){
-      divCadastrar.style.display = "none"
-      divLogin.style.display = "block"
-    }
-    else{
-      alert("erro")
-    }
-  }
 
-  function logar() {
-    const email = document.querySelector(".email").value;
-    const senha = document.querySelector(".senha").value;
+    function limparEstiloEdado() {
+      const erroCadastro = document.querySelector('.erroCadastro');
+      const erroLogin = document.querySelector('.erroLogin');
+      const inputSenhaCadastro = document.querySelector('.senhaCadastro');
+      const inputSegundaSenhaCadastro = document.querySelector(
+        '.segundaSenhaCadastro'
+      );
+      const inputSenhaLogin = document.querySelector('.senha');
+      const inputNome = document.querySelector('.nomeCadastro');
 
-    auth.signInWithEmailAndPassword(email, senha)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Usuário logado:", user.email);
-        alert("Usuario Logado com sucesso!");
-      })
-      .catch((erro) => {
-        console.error("Erro ao logar:", erro.code, erro.message);
-        alert("Erro ao fazer login: " + erro.message);
+      inputSenhaCadastro.classList.remove('bordaVermelha');
+      inputSegundaSenhaCadastro.classList.remove('bordaVermelha');
+      inputSenhaLogin.classList.remove('bordaVermelha');
+      inputNome.classList.remove('bordaVermelha');
+      erroCadastro.classList.add('esconder');
+      erroLogin.classList.add('esconder');
+
+      document.querySelectorAll('input').forEach((input) => {
+        input.value = '';
       });
-  }
+    }
 
-  function cadastrar() {
-    const email = document.querySelector(".emailCadastro").value;
-    const senha = document.querySelector(".senhaCadastro").value;
-    const nome = document.querySelector(".nomeCadastro").value;
+    function logar() {
+      const email = document.querySelector('.email').value;
+      const senha = document.querySelector('.senha').value;
+      const erroLogin = document.querySelector('.erroLogin');
+      const inputSenha = document.querySelector('.senha');
+      const inputEmail = document.querySelector('.email');
 
-    auth.createUserWithEmailAndPassword(email, senha)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log("Usuário Cadastrado:", user.email);
-
-        db.ref('usuarios/' + user.uid).set({
-          id: user.uid,
-          nome: nome,
-          email: email,
-          senha: senha,
-          fotoPerfil: "",
-          funcao: "USUARIO"
+      auth
+        .signInWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('Usuário logado:', user.email);
+          alert('Usuario Logado com sucesso!');
+          limparEstiloEdado();
+        })
+        .catch((erro) => {
+          console.error('Erro ao logar:', erro.code);
+          //auth/missing-password
+          if (erro.code === 'auth/missing-password') {
+            erroLogin.textContent = 'Senha não pode estar vazia.';
+            erroLogin.classList.remove('esconder');
+            inputSenha.classList.add('bordaVermelha');
+          }
+          //auth/invalid-credential
+          else if (erro.code === 'auth/invalid-credential') {
+            erroLogin.textContent = 'senha inválida.';
+            erroLogin.classList.remove('esconder');
+            inputSenha.classList.add('bordaVermelha');
+            inputSenha.value = '';
+          }
+          //auth/invalid-email
+          else if (erro.code === 'auth/invalid-email') {
+            erroLogin.textContent = 'Usuario não encontrado.';
+            erroLogin.classList.remove('esconder');
+            inputSenha.value = '';
+            inputEmail.value = '';
+          } else {
+            inputSenha.classList.remove('bordaVermelha');
+            erroLogin.classList.add('esconder');
+            alert('Erro ao fazer login: ' + erro.message, erro.code);
+          }
         });
+    }
 
-        alert("Cadastro realizado com sucesso!");
-      })
-      .catch((erro) => {
-        console.error("Erro ao Cadastrar:", erro.code, erro.message);
-        alert("Erro ao fazer Cadastro: " + erro.message);
-      });
-  }
-</script>
+    function cadastrar() {
+      const email = document.querySelector('.emailCadastro').value;
+      const senha = document.querySelector('.senhaCadastro').value;
+      const nome = document.querySelector('.nomeCadastro').value;
+
+      const segundaSenha = document.querySelector(
+        '.segundaSenhaCadastro'
+      ).value;
+      const erroCadastro = document.querySelector('.erroCadastro');
+      const inputSenha = document.querySelector('.senhaCadastro');
+      const inputSegundaSenha = document.querySelector('.segundaSenhaCadastro');
+      const inputEmail = document.querySelector('.emailCadastro');
+      const inputNome = document.querySelector('.nomeCadastro');
+
+      if (senha != segundaSenha) {
+        inputSenha.classList.add('bordaVermelha');
+        inputSegundaSenha.classList.add('bordaVermelha');
+        erroCadastro.classList.remove('esconder');
+        return false;
+      } else {
+        inputSenha.classList.remove('bordaVermelha');
+        inputSegundaSenha.classList.remove('bordaVermelha');
+      }
+
+      if (nome.length === 0 || nome == null || nome === undefined) {
+        erroCadastro.textContent = 'Nome não pode estar vazio.';
+        erroCadastro.classList.remove('esconder');
+        inputNome.classList.add('bordaVermelha');
+        return false;
+      } else {
+        inputNome.classList.remove('bordaVermelha');
+      }
+
+      auth
+        .createUserWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          console.log('Usuário Cadastrado:', user.email);
+
+          db.ref('usuarios/' + user.uid).set({
+            id: user.uid,
+            nome: nome,
+            email: email,
+            senha: senha,
+            fotoPerfil: '',
+            funcao: 'USUARIO',
+          });
+
+          erroCadastro.textContent = 'Cadastro realizado com sucesso!';
+          erroCadastro.classList.remove('erroVermelho', 'esconder');
+          erroCadastro.classList.add('erroVerde');
+
+          setTimeout(() => {
+            erroCadastro.classList.remove('erroVerde');
+            erroCadastro.classList.add('erroVermelho');
+            divCadastrar();
+          }, 2000);
+        })
+        .catch((erro) => {
+          console.error('Erro ao Cadastrar:', erro.code, erro.message);
+
+          //auth/email-already-in-use
+          if (erro.code === 'auth/email-already-in-use') {
+            erroCadastro.textContent = 'Email já está em uso.';
+            erroCadastro.classList.remove('esconder');
+            inputEmail.classList.add('bordaVermelha');
+          }
+          //auth/invalid-email
+          else if (erro.code === 'auth/invalid-email') {
+            erroCadastro.textContent = 'Email inválido.';
+            erroCadastro.classList.remove('esconder');
+            inputEmail.classList.add('bordaVermelha');
+          }
+          //auth/missing-password
+          else if (erro.code === 'auth/missing-password') {
+            erroCadastro.textContent = 'Senha não pode estar vazia.';
+            erroCadastro.classList.remove('esconder');
+            inputSenha.classList.add('bordaVermelha');
+          }
+          //auth/weak-password
+          else if (erro.code === 'auth/weak-password') {
+            erroCadastro.textContent = 'Senha muito fraca.';
+            erroCadastro.classList.remove('esconder');
+            inputSenha.classList.add('bordaVermelha');
+          } else {
+            alert('Erro ao fazer Cadastro: ' + erro.message);
+          }
+        });
+    }
+  </script>
 </html>
