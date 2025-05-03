@@ -146,8 +146,17 @@
         .then((userCredential) => {
           const user = userCredential.user;
           console.log('Usuário logado:', user.email);
-          alert('Usuario Logado com sucesso!');
-          limparEstiloEdado();
+
+          erroLogin.textContent = 'Usuario Logado com sucesso!';
+          erroLogin.classList.remove('erroVermelho', 'esconder');
+          erroLogin.classList.add('erroVerde');
+
+          setTimeout(() => {
+            erroLogin.classList.remove('erroVerde');
+            erroLogin.classList.add('esconder');
+            erroLogin.classList.add('erroVermelho');
+            limparEstiloEdado();
+          }, 2000);
         })
         .catch((erro) => {
           console.error('Erro ao logar:', erro.code);
