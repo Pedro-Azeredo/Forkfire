@@ -1,0 +1,126 @@
+body {
+    height: 100vh;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+.nav {
+    margin: 0 auto;
+    padding: 14px 0;
+    width: 1410px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    z-index: 1;
+    border-radius: 100px;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.logo {
+    margin-left: 40px;
+    margin-right: 100px;
+    max-width: 124px;
+    display: flex;
+    
+}
+
+.logo img {
+    max-width: 100%;
+    cursor: pointer;
+    filter: brightness(0) invert(1); /*incredible*/
+}
+
+.nav-itens {
+    list-style: none;
+    display: flex;
+}
+
+.nav ul li {
+    cursor: pointer;
+}
+
+.mudar {
+    margin-left: 35px;
+    display: inline-block;
+}
+
+.mudar:hover {
+    text-decoration: solid underline white 3px;
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+}
+
+.registrar {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: 590px;
+}
+
+.registrar p {
+    cursor: pointer;
+    cursor: pointer;
+}
+
+.registrar p:hover {
+    text-decoration: solid underline white 3px;
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-nav {
+    margin-left: 45px;
+    border-radius: 9999px;
+    padding: 8px 40px;
+    cursor: pointer;
+    border: 2px solid white;
+    color: none;
+    background-color: transparent;
+}
+
+.btn-nav:hover {
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+    background-color: rgba(233, 61, 84, 0.68);
+}
+
+
+
+.wrapper ul li:hover,
+.wrapper a:hover {
+    transform: translateX(5px);
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.normal {
+    color: white;
+}
+
+.anormal {
+    color: #ff9800;
+}
+
+.anormal:hover {
+    color: #321c61;
+    transition: all 0.2s ease-in-out;
+}
+
+@media (max-width: 1600px) {
+    .nav {
+    width: 1200px;
+    }
+    .registrar {
+    display: flex;
+    justify-content: flex-end;
+      /* margin-left: 590px; */
+    margin-left: 380px;
+    }
+}
