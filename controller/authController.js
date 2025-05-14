@@ -1,56 +1,3 @@
-// auth.js
-
-addEventListener('keydown', function (event) {
-  if (
-    event.key === 'Enter' &&
-    document.getElementsByClassName('divLogin')[0].style.display === 'block'
-  ) {
-    event.preventDefault();
-    logar();
-  } else if (
-    event.key === 'Enter' &&
-    document.getElementsByClassName('divCadastro')[0].style.display === 'block'
-  ) {
-    event.preventDefault();
-    cadastrar();
-  }
-});
-
-function divCadastrar() {
-  const divLogin = document.getElementsByClassName('divLogin')[0];
-  const divCadastrar = document.getElementsByClassName('divCadastro')[0];
-
-  if (divCadastrar.style.display === 'none') {
-    divCadastrar.style.display = 'block';
-    divLogin.style.display = 'none';
-    limparEstiloEdado();
-  } else {
-    divCadastrar.style.display = 'none';
-    divLogin.style.display = 'block';
-    limparEstiloEdado();
-  }
-}
-
-function limparEstiloEdado() {
-  const erroCadastro = document.querySelector('.erroCadastro');
-  const erroLogin = document.querySelector('.erroLogin');
-  const inputSenhaCadastro = document.querySelector('.senhaCadastro');
-  const inputSegundaSenhaCadastro = document.querySelector('.segundaSenhaCadastro');
-  const inputSenhaLogin = document.querySelector('.senha');
-  const inputNome = document.querySelector('.nomeCadastro');
-
-  inputSenhaCadastro.classList.remove('bordaVermelha');
-  inputSegundaSenhaCadastro.classList.remove('bordaVermelha');
-  inputSenhaLogin.classList.remove('bordaVermelha');
-  inputNome.classList.remove('bordaVermelha');
-  erroCadastro.classList.add('esconder');
-  erroLogin.classList.add('esconder');
-
-  document.querySelectorAll('input').forEach((input) => {
-    input.value = '';
-  });
-}
-
 function logar() {
   const email = document.querySelector('.email').value;
   const senha = document.querySelector('.senha').value;
@@ -76,7 +23,7 @@ function logar() {
       }, 2000);
 
       window.location.href = 'home.html';
-      console.log(user)
+      console.log(user);
     })
     .catch((erro) => {
       console.error('Erro ao logar:', erro.code);
