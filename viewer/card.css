@@ -1,180 +1,85 @@
-/* Estilos Gerais */
+/* Container principal das receitas */
 .receitas-container {
-  padding: 2rem;
-  max-width: 1600px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 20px;
 }
 
-/* Grid de Receitas - 4 colunas com espaçamento vertical explícito */
+/* Grade de receitas */
 .grade-receitas {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem; /* Espaçamento igual para todos os lados */
-  row-gap: 2.5rem; /* Espaçamento vertical maior entre linhas */
-  padding: 1rem 0;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+  justify-content: center;
 }
 
-/* Card de Receita */
+/* Estilo dos cards individuais */
 .receita-card {
   background: white;
-  border-radius: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  margin-bottom: 1rem; /* Espaço extra de backup */
+  transition: transform 0.3s ease;
 }
 
-/* Estilos do card (mantidos do anterior) */
+.receita-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Cabeçalho do card */
 .receita-header {
-  position: relative;
-  height: 200px;
-  overflow: hidden;
+  padding: 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .receita-imagem {
   width: 100%;
-  height: 100%;
+  height: 200px;
   object-fit: cover;
-  transition: transform 0.5s ease;
-}
-
-.receita-card:hover .receita-imagem {
-  transform: scale(1.05);
+  border-radius: 5px;
 }
 
 .sem-imagem {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  height: 200px;
+  background: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6b7280;
-  font-size: 0.9rem;
+  color: #666;
+  border-radius: 5px;
 }
 
-.receita-header h2 {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
-  color: white;
-  padding: 1.2rem 1rem;
-  margin: 0;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.categoria,
-.tempo {
-  position: absolute;
-  top: 12px;
-  padding: 0.4rem 0.9rem;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  backdrop-filter: blur(4px);
-  color: white;
-}
-
-.categoria {
-  left: 12px;
-  background-color: rgba(16, 185, 129, 0.9);
-}
-
-.tempo {
-  right: 12px;
-  background-color: rgba(59, 130, 246, 0.9);
-}
-
+/* Corpo do card */
 .receita-body {
-  padding: 1.5rem;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
+  padding: 15px;
 }
 
 .receita-body h3 {
-  font-size: 1rem;
-  color: #374151;
-  margin: 0.6rem 0 0.4rem;
-  font-weight: 600;
+  color: #333;
+  margin-top: 0;
 }
 
 .receita-body p {
-  font-size: 0.9rem;
-  color: #4b5563;
+  color: #666;
   line-height: 1.6;
-  margin: 0;
-  flex-grow: 1;
 }
 
+/* Rodapé do card */
 .receita-footer {
-  padding: 1rem 1.5rem;
-  background: #f9fafb;
-  font-size: 0.8rem;
-  color: #6b7280;
-  border-top: 1px solid #e5e7eb;
+  padding: 10px 15px;
+  background: #f9f9f9;
+  font-size: 0.8em;
+  color: #888;
 }
 
-/* Mensagens de Estado */
-.sem-receitas,
-.erro-receitas {
-  grid-column: 1 / -1;
-  text-align: center;
-  padding: 3rem;
-  font-size: 1.1rem;
-  color: #6b7280;
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  margin: 2rem 0;
+/* Categoria e tempo */
+.categoria, .tempo {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 0.9em;
+  color: #555;
 }
 
-/* Responsividade com espaçamento vertical consistente */
-@media (max-width: 1400px) {
-  .grade-receitas {
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 2.3rem; /* Ajuste proporcional */
-  }
-}
-
-@media (max-width: 1024px) {
-  .grade-receitas {
-    grid-template-columns: repeat(2, 1fr);
-    row-gap: 2rem;
-  }
-
-  .receita-header {
-    height: 180px;
-  }
-}
-
-@media (max-width: 768px) {
-  .receitas-container {
-    padding: 1.5rem;
-  }
-
-  .grade-receitas {
-    row-gap: 1.8rem;
-  }
-}
-
-@media (max-width: 600px) {
-  .grade-receitas {
-    grid-template-columns: 1fr;
-    row-gap: 1.5rem;
-  }
-
-  .receitas-container {
-    padding: 1rem;
-  }
-
-  .receita-header {
-    height: 220px;
-  }
+.tempo {
+  color: #ff6b6b;
 }

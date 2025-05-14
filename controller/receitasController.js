@@ -1,56 +1,56 @@
-const receitas = document.getElementById('grade');
+const receitas = document.getElementById('grade-receitas');
 const receitasRef = db.ref('/receitas');
 const receitaForm = document.getElementById('receitaForm');
+let base64String = null;
 
-function cadastrarReceita() {
-  let base64String = null;
 
-  document
-    .getElementById('imagem')
-    .addEventListener('change', async (event) => {
-      const file = event.target.files[0];
-      if (file) {
-        try {
-          base64String = await convertImageToBase64(file);
-          console.log('Imagem convertida com sucesso');
-        } catch (error) {
-          console.error('Erro ao converter imagem:', error);
-        }
-      }
+// Event listener para o input de imagem
+document.getElementById('imagem').addEventListener('change', async (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    try {
+      base64String = await convertImageToBase64(file);
+      console.log('Imagem convertida com sucesso');
+    } catch (error) {
+      console.error('Erro ao converter imagem:', error);
+    }
+  }
+});
+
+// Função para cadastrar nova receita
+receitaForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const user = firebase.auth().currentUser;
+
+  let titulo = document.getElementById('titulo').value;
+  let ingredientes = document.getElementById('ingredientes').value;
+  let categoria = document.getElementById('categoria').value;
+  let modoPreparo = document.getElementById('modoPreparo').value;
+  let tempoPreparo = document.getElementById('tempoPreparo').value;
+  let dataHora = Date.now();
+
+  try {
+    const novaReceitaRef = db.ref(`receitas/${user.uid}/${dataHora}`);
+
+    await novaReceitaRef.set({
+      titulo: titulo,
+      ingredientes: ingredientes,
+      categoria: categoria,
+      modoPreparo: modoPreparo,
+      tempoPreparo: tempoPreparo,
+      foto: base64String,
+      criadoPor: user.uid,
+      dataCriacao: dataHora,
     });
 
-  receitaForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    let titulo = document.getElementById('titulo').value;
-    let ingredientes = document.getElementById('ingredientes').value;
-    let categoria = document.getElementById('categoria').value;
-    let modoPreparo = document.getElementById('modoPreparo').value;
-    let tempoPreparo = document.getElementById('tempoPreparo').value;
-    let dataHora = Date.now();
-
-    try {
-      const novaReceitaRef = db.ref(`receitas/${user.uid}/${dataHora}`);
-
-      await novaReceitaRef.set({
-        titulo: titulo,
-        ingredientes: ingredientes,
-        categoria: categoria,
-        modoPreparo: modoPreparo,
-        tempoPreparo: tempoPreparo,
-        foto: base64String,
-        criadoPor: user.uid,
-        dataCriacao: dataHora,
-      });
-
-      console.log('Receita salva com sucesso!');
-      receitaForm.reset();
-      base64String = null;
-    } catch (error) {
-      console.error('Erro ao salvar receita:', error);
-    }
-  });
-}
+    console.log('Receita salva com sucesso!');
+    receitaForm.reset();
+    base64String = null;
+  } catch (error) {
+    console.error('Erro ao salvar receita:', error);
+  }
+});
 
 // Função para buscar todas as receitas
 function buscarReceitas() {
@@ -76,4 +76,5 @@ function buscarReceitas() {
   );
 }
 
+// Inicialização
 buscarReceitas();

@@ -14,6 +14,7 @@ addEventListener('keydown', function (event) {
   }
 });
 
+//alterna entra div login e cadastro
 function divCadastrar() {
   const divLogin = document.getElementsByClassName('divLogin')[0];
   const divCadastrar = document.getElementsByClassName('divCadastro')[0];
@@ -29,6 +30,7 @@ function divCadastrar() {
   }
 }
 
+//limpa os estilos
 function limparEstiloEdado() {
   const erroCadastro = document.querySelector('.erroCadastro');
   const erroLogin = document.querySelector('.erroLogin');
@@ -51,6 +53,7 @@ function limparEstiloEdado() {
   });
 }
 
+//converte imagem para base64
 function convertImageToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();

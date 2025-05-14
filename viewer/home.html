@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="card.css" />
     <link
       rel="icon"
-      href="/forkfire/assets/images/favicon.ico"
+      href="../assets/images/favicon.ico"
       type="image/x-icon"
     />
   </head>
@@ -16,7 +16,7 @@
     <!-- nav -->
     <nav class="nav">
       <div class="logo">
-        <img src="/forkfire/assets/images/favicon.ico" alt="Logo" />
+        <img src="../assets/images/favicon.ico" alt="Logo" />
       </div>
       <ul class="nav-itens">
         <li><a href="#" class="mudar">Receitas</a></li>
@@ -109,11 +109,13 @@
     <!-- Inicialização e lógica -->
     <script src="../config/firebase-init.js"></script>
 
+
+    <script src="../utils/authVerification.js"></script>
+
     <!-- Controller -->
     <script src="../controller/receitasController.js"></script>
 
     <!-- Utils -->
-    <script src="../utils/authVerification.js"></script>
     <script src="../utils/utils.js"></script>
   </body>
 </html>
