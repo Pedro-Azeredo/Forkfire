@@ -8,28 +8,48 @@
     <link rel="stylesheet" href="card.css" />
     <link
       rel="icon"
-      href="../assets/images/favicon.ico"
+      href="/forkfire/assets/images/favicon.ico"
       type="image/x-icon"
     />
   </head>
   <body>
     <!-- nav -->
-    <nav class="nav">
-      <div class="logo">
-        <img src="../assets/images/favicon.ico" alt="Logo" />
-      </div>
-      <ul class="nav-itens">
-        <li><a href="#" class="mudar">Receitas</a></li>
-        <li><a href="#" class="mudar">Categorias</a></li>
-        <li><a href="#" class="mudar">Suporte</a></li>
-      </ul>
-      <div class="registrar">
-        <p><a href="index.html">Registrar-se</a></p>
-      </div>
-      <button class="btn-nav">
-        <a href="index.html" class="alogin">Fazer Login</a>
-      </button>
-    </nav>
+     <div class="container-nav">
+      <nav class="nav">
+        <div class="logo">
+          <img src="/forkfire/assets/images/favicon.ico" alt="Logo" />
+        </div>
+        <ul class="nav-itens">
+          <li><a href="#" class="mudar">Receitas</a></li>
+          <li><a href="#" class="mudar">Categorias</a></li>
+          <li><a href="#" class="mudar">Suporte</a></li>
+        </ul>
+        <div class="registrar">
+          <p><a href="index.html">Registrar-se</a></p>
+        </div>
+        <button class="btn-nav">
+          <a href="index.html" class="alogin">Fazer Login</a>
+        </button>
+
+        <div class="area-hamburguer">
+          <input type="checkbox" class="cb-falso" id="menu-toggle" />
+          <label for="menu-toggle" class="hamburguer">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="menu-mobile">
+            <li><a href="#">Receitas</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Suporte</a></li>
+            <li><a href="index.html">Registrar-se</a></li>
+            <li><a href="index.html">Fazer Login</a></li>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+
 
     <!-- Botão para abrir o modal -->
     <button id="abrirModalBtn">Adicionar Receita</button>
@@ -109,13 +129,13 @@
     <!-- Inicialização e lógica -->
     <script src="../config/firebase-init.js"></script>
 
-
-    <script src="../utils/authVerification.js"></script>
-
     <!-- Controller -->
+    <script src="../controller/authController.js"></script>
     <script src="../controller/receitasController.js"></script>
+    
 
     <!-- Utils -->
+    <script src="../utils/authVerification.js"></script>
     <script src="../utils/utils.js"></script>
   </body>
 </html>
