@@ -6,7 +6,7 @@ body {
 }
 
 .nav {
-    margin: 0 auto;
+    margin: 10px auto;
     padding: 14px 0;
     width: 1410px;
     background: linear-gradient(to right, #ff4b2b, #ff416c);
@@ -59,7 +59,7 @@ a{
 }
 
 .registrar {
-    display: flex;
+    display: none;
     justify-content: flex-end;
     margin-left: 590px;
 }
@@ -76,6 +76,7 @@ a{
 }
 
 .btn-nav {
+    display: none;
     margin-left: 45px;
     border-radius: 9999px;
     padding: 8px 40px;
@@ -119,16 +120,71 @@ a{
 
 @media (max-width: 1600px) {
     .nav {
-    width: 1200px;
+    
     }
     .registrar {
-    display: flex;
+    display: none;
     justify-content: flex-end;
       /* margin-left: 590px; */
     margin-left: 380px;
     }
 }
 
+@media (max-width: 584px) {
+  .container-nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .nav {
+    padding: 14px 0;
+    width: 514px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    z-index: 1;
+    border-radius: 100px;
+    position: sticky;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+  }
+
+  .logo {
+    margin-left: 7%;
+    max-width: 100px;
+    display: flex;
+  }
+
+  .logo img {
+    max-width: 100%;
+    cursor: pointer;
+    filter: brightness(0) invert(1); /*incredible*/
+  }
+  
+  .nav-itens {
+    list-style: none;
+    display: flex;
+  }
+  
+  .mudar {
+    margin-left: 25px;
+    margin-right: 10%;
+    display: inline-block;
+  }
+  
+  .registrar, .btn-nav {
+  display: none;
+  }
+}
+
+/* iphone 12/13 pro */
 @media (max-width: 390px) {
   body {
     width: 100%;
@@ -139,6 +195,7 @@ a{
     display: flex;
     align-items: center;
     width: 100%;
+    margin-top: 10px;
   }
 
   .nav {
@@ -187,13 +244,13 @@ a{
   .area-hamburguer {
     position: absolute; 
     display: block;
-    top: 10px;          
+    bottom: 4px;          
     right: 20px;         
     z-index: 10;
   }
 
   .cb-falso {
-    position: absolute;
+    /*position: absolute;*/
     top: 20px;
     right: 20px;
     width: 40px;
@@ -242,7 +299,8 @@ a{
   .menu-mobile {
     display: none;
     position: absolute;
-    top: 60px;
+    /* distancia do menu pro X */
+    top: 100px;
     right: 0;
     width: 200px;
     background-color: #ff4b2b;
@@ -270,6 +328,18 @@ a{
   .menu-mobile a:hover {
     text-decoration: underline;
   }
+  
+  /* Aqui é só para o form da Receita Mobile  */
+  form {
+    max-width: 350px;
+    margin: 0;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
 }
 
 /* Aqui pra baixo é Grade */
@@ -413,6 +483,12 @@ form {
     border-radius: 4px;
   }
 
+  .container-btn {
+    display: flex; 
+    align-items: center;
+    width: 100%;
+  }
+
   button {
     margin-top: 1.2rem;
     padding: 0.6rem;
@@ -428,7 +504,8 @@ form {
   }
 
   #abrirModalBtn {
-    margin: 2rem;
+    margin: 20px auto;
     padding: 0.8rem 1.2rem;
     font-size: 1rem;
+    display: flex;
   }
