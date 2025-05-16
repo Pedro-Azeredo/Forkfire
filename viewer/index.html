@@ -4,43 +4,123 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fork&Fire</title>
-    <link rel="stylesheet" href="style.css" />
-    <link rel="icon" href="../assets/images/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="nav.css" />
+    <link rel="stylesheet" href="card.css" />
+    <link
+      rel="icon"
+      href="/forkfire/assets/images/favicon.ico"
+      type="image/x-icon"
+    />
   </head>
   <body>
-    <div class="divLogin" style="display: block">
-      <h1>Fork&Fire</h1>
-      <h4>Login</h4>
-      <label>Email: <input class="email" type="text" required /></label>
-      <label>Senha: <input class="senha" type="password" required /></label>
-      <button onclick="logar()">Login</button>
-      <button onclick="divCadastrar()">Cadastrar</button>
-      <p
-        class="erroLogin esconder"
-        style="font-size: 0.8rem; color: firebrick"
-      ></p>
+    <!-- nav -->
+     <div class="container-nav">
+      <nav class="nav">
+        <div class="logo">
+          <img src="/forkfire/assets/images/favicon.ico" alt="Logo" />
+        </div>
+        <ul class="nav-itens">
+          <li><a href="#" class="mudar">Receitas</a></li>
+          <li><a href="#" class="mudar">Categorias</a></li>
+          <li><a href="#" class="mudar">Suporte</a></li>
+        </ul>
+        <div class="registrar">
+          <p><a href="index.html">Registrar-se</a></p>
+        </div>
+        <button class="btn-nav">
+          <a href="index.html" class="alogin">Fazer Login</a>
+        </button>
+
+        <div class="area-hamburguer">
+          <input type="checkbox" class="cb-falso" id="menu-toggle" />
+          <label for="menu-toggle" class="hamburguer">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="menu-mobile">
+            <li><a href="#">Receitas</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Suporte</a></li>
+            <li><a href="index.html">Registrar-se</a></li>
+            <li><a href="index.html">Fazer Login</a></li>
+          </ul>
+        </div>
+
+      </nav>
     </div>
 
-    <div class="divCadastro" style="display: none">
-      <h1>Fork&Fire</h1>
-      <h4>Cadastro</h4>
-      <label>Nome: <input class="nomeCadastro" type="text" required /></label>
-      <label>Email: <input class="emailCadastro" type="text" required /></label>
-      <label
-        >Senha: <input class="senhaCadastro" type="password" required
-      /></label>
-      <label
-        >Confirmar senha:
-        <input class="segundaSenhaCadastro" type="password" required
-      /></label>
-      <button onclick="divCadastrar()">Voltar</button>
-      <button onclick="cadastrar()">Cadastrar</button>
-      <p
-        class="erroCadastro esconder"
-        style="font-size: 0.8rem; color: firebrick"
-      >
-        As senhas precisam ser iguais!
-      </p>
+
+    <!-- Botão para abrir o modal -->
+    <div class="container-btn">
+      <button id="abrirModalBtn">Adicionar Receita</button>
+    </div>
+    
+    <!-- Modal com o formulário -->
+    <div id="modalReceita" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fecharModal">&times;</span>
+        <form id="receitaForm">
+          <fieldset>
+            <legend>Nova Receita</legend>
+
+            <label for="titulo">Título da Receita:</label>
+            <input
+              type="text"
+              id="titulo"
+              name="titulo"
+              placeholder="Ex: Bolo de Cenoura"
+              required
+            />
+
+            <label for="ingredientes">Ingredientes:</label>
+            <input
+              type="text"
+              id="ingredientes"
+              name="ingredientes"
+              placeholder="Ex: Cenoura, ovos, açúcar..."
+              required
+            />
+
+            <label for="categoria">Categoria:</label>
+            <input
+              type="text"
+              id="categoria"
+              name="categoria"
+              placeholder="Ex: Doces, Salgados..."
+              required
+            />
+
+            <label for="modoPreparo">Modo de Preparo:</label>
+            <textarea
+              id="modoPreparo"
+              name="modoPreparo"
+              rows="5"
+              placeholder="Descreva o passo a passo..."
+              required
+            ></textarea>
+
+            <label for="tempoPreparo">Tempo de Preparo (em minutos):</label>
+            <input
+              type="number"
+              id="tempoPreparo"
+              name="tempoPreparo"
+              min="1"
+              placeholder="Ex: 30"
+              required
+            />
+
+            <label for="foto">Foto</label>
+            <input id="imagem" type="file" />
+
+            <button type="submit" id="enviar">Enviar Receita</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="receitas-container">
+      <div id="grade-receitas" class="grade-receitas"></div>
     </div>
 
     <!-- Firebase SDKs -->
@@ -51,12 +131,34 @@
     <!-- Inicialização e lógica -->
     <script src="../config/firebase-init.js"></script>
 
-    <!-- Controllers -->
+    <!-- Controller -->
     <script src="../controller/authController.js"></script>
-    <script src="../controller/usuarioController.js"></script>
     <script src="../controller/receitasController.js"></script>
+    
 
     <!-- Utils -->
+    <script src="../utils/authVerification.js"></script>
     <script src="../utils/utils.js"></script>
   </body>
 </html>
+
+<script>
+  const abrirModalBtn = document.getElementById('abrirModalBtn');
+  const modal = document.getElementById('modalReceita');
+  const fecharModalBtn = document.getElementById('fecharModal');
+
+  abrirModalBtn.onclick = () => {
+    modal.style.display = 'block';
+  };
+
+  fecharModalBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  // Fecha se clicar fora da área do modal
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>
