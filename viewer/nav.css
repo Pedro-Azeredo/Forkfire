@@ -185,7 +185,7 @@ a{
 }
 
 /* iphone 12/13 pro */
-@media (max-width: 390px) {
+@media (max-width: 430px) {
   body {
     width: 100%;
     height: 100%;
