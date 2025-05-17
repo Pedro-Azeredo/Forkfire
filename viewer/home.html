@@ -135,10 +135,15 @@
 
 <script>
   const abrirModalBtn = document.getElementById('abrirModalBtn');
+  const abrirModalBtnMobile = document.getElementById('abrirModalBtnMobile');
   const modal = document.getElementById('modalReceita');
   const fecharModalBtn = document.getElementById('fecharModal');
 
   abrirModalBtn.onclick = () => {
+    modal.style.display = 'block';
+  };
+  
+    abrirModalBtnMobile.onclick = () => {
     modal.style.display = 'block';
   };
 
