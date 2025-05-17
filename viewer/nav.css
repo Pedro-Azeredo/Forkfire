@@ -17,6 +17,7 @@ body {
     display: flex;
     align-items: center;
     color: white;
+    height: auto;
 }
 
 a{
@@ -388,7 +389,7 @@ a{
     text-decoration: underline;
   }
   
-    #abrirModalBtn {
+  #abrirModalBtn {
       display: none;
   }
   
@@ -399,12 +400,34 @@ a{
     display: flex;
     width: 171.9px;
   }
+
+  .modal-content {
+    max-width: 350px;
+  }
+
 }
 
 @media (max-width: 390px) {
   .nav {
       width: 345px;
-    }
+  }
+  
+  #abrirModalBtn {
+      display: none;
+  }
+  
+   #abrirModalBtnMobile {
+    margin: 20px auto;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    display: flex;
+    width: 171.9px;
+  }
+
+    
+  .modal-content {
+    max-width: 310px;
+  }
 }
 
 /* Aqui pra baixo é Grade */
@@ -497,5 +520,4 @@ form {
   button[type="submit"]:hover {
     background-color: #e55c1d;
   }
-
 
