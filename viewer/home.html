@@ -58,9 +58,16 @@
               <a href="#">Suporte</a>
             </li>
             <hhr></hhr>
-            <li>
-              <i class="fas fa-user"></i>
-              <a class="nomeUsuario" href="#">Olá, User</a>
+            <li class="liUser">
+              <div class='coringa'>
+                <label for="fotoPerfilInput" style="cursor:pointer;">
+                  <i class="fas fa-user" id='iconPerfil'></i>
+                  <a class="nomeUsuario" href="#">Olá, User</a>
+                </label>
+                <input type="file" id="fotoPerfilInput" accept="image/*" style="display:none;">
+              </div>
+              <input type="file" id="fotoPerfilInput" style="display:none;">
+              <i id='exit' class='fas fa-2x' onclick='logout()'></i>
             </li>
           </ul>
         </div>
@@ -148,6 +155,7 @@
     <!-- Controller -->
     <script src="../controller/authController.js"></script>
     <script src="../controller/receitasController.js"></script>
+    <script src="../controller/usuarioController.js"></script>
     
 
     <!-- Utils -->
