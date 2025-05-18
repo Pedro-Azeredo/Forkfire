@@ -12,12 +12,12 @@ body {
     background: linear-gradient(to right, #ff4b2b, #ff416c);
     z-index: 1;
     border-radius: 100px;
-    position: sticky;
+    position: relative;
     top: 20px;
     display: flex;
     align-items: center;
     color: white;
-    height: auto;
+    height: 49px;
 }
 
 a{
@@ -205,11 +205,11 @@ a{
     background: linear-gradient(to right, #ff4b2b, #ff416c);
     z-index: 1;
     border-radius: 100px;
-    position: sticky;
     top: 20px;
     display: flex;
     align-items: center;
     color: white;
+    height: 49px;
   }
 
   a {
@@ -264,14 +264,14 @@ a{
     background: linear-gradient(to right, #ff4b2b, #ff416c);
     z-index: 1;
     border-radius: 100px;
-    position: sticky;
     top: 20px;
     display: flex;
     align-items: center;
     color: white;
+    height: 49px;
   }
 
-  a{
+  a {
     color: white;
     text-decoration: none;
 }
@@ -302,10 +302,10 @@ a{
 }
 
   .area-hamburguer {
-    position: absolute; 
+    position: fixed; 
     display: block;
-    bottom: 4px;          
-    right: 20px;         
+    margin-bottom: 55px;
+    right: 35px;         
     z-index: 10;
   }
 
@@ -410,6 +410,7 @@ a{
 @media (max-width: 390px) {
   .nav {
       width: 345px;
+      height: 49px;
   }
   
   #abrirModalBtn {
@@ -423,7 +424,6 @@ a{
     display: flex;
     width: 171.9px;
   }
-
     
   .modal-content {
     max-width: 310px;
