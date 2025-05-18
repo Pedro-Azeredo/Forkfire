@@ -76,5 +76,39 @@ function buscarReceitas() {
   );
 }
 
+// Função para renderizar as receitas
+function renderizarReceitas(receitas) {
+  const container = document.getElementById('grade-receitas');
+  container.innerHTML = ''; // Limpa o container antes de renderizar
+
+  Object.entries(receitas).forEach(([userId, userReceitas]) => {
+    Object.entries(userReceitas).forEach(([timestamp, receita]) => {
+      const card = document.createElement('div');
+      card.className = 'receita-card';
+
+      // Formata a data (opcional)
+      const dataFormatada = new Date(Number(timestamp)).toLocaleDateString();
+
+      // Conteúdo do card
+      card.innerHTML = `
+        <div class="receita-image">
+          ${receita.foto ? `<img src="${receita.foto}" alt="${receita.titulo}" class="receita-imagem">` : '<div class="sem-imagem">Sem imagem</div>'}
+        </div>
+        <div class="receita-text">
+          <h2>${receita.titulo}</h2>
+          <div class="receita-tempo">
+            <span class="tempo">${receita.tempoPreparo} min</span>
+          </div>
+          <div class="receita-categoria">
+            <span class="categoria">${receita.categoria}</span>
+          </div>
+        </div>
+      `;
+
+      container.appendChild(card);
+    });
+  });
+}
+
 // Inicialização
 buscarReceitas();
