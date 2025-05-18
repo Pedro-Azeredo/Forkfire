@@ -53,6 +53,37 @@ function limparEstiloEdado() {
   });
 }
 
+//comprimir imagem
+async function compressImage(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (event) => {
+      const img = new Image();
+      img.src = event.target.result;
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const MAX_SIZE = 400; // 400px
+        let width = img.width;
+        let height = img.height;
+        
+        if (width > height && width > MAX_SIZE) {
+          height *= MAX_SIZE / width;
+          width = MAX_SIZE;
+        } else if (height > MAX_SIZE) {
+          width *= MAX_SIZE / height;
+          height = MAX_SIZE;
+        }
+        
+        canvas.width = width;
+        canvas.height = height;
+        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+        resolve(canvas.toDataURL('image/jpeg', 0.7)); // 70% qualidade
+      };
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 //converte imagem para base64
 function convertImageToBase64(file) {
   return new Promise((resolve, reject) => {

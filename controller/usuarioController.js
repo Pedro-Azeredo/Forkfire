@@ -18,25 +18,36 @@ function updateProfileIcon(imageBase64) {
 }
 
 fotoPerfilInput.addEventListener('change', async (e) => {
+  const user = auth.currentUser;
   const file = e.target.files[0];
   if (!file) return;
 
+  // Verificação adicional do tipo de arquivo
+  if (!file.type.match('image.*')) {
+    alert('Por favor, selecione apenas imagens!');
+    return;
+  }
+
   try {
-    const user = firebase.auth().currentUser;
-    if (!user) {
-      console.log('Usuário não está logado');
+    // 1. Comprime a imagem primeiro
+    const compressedBase64 = await compressImage(file);
+    console.log('Imagem comprimida:', compressedBase64.length);
+    
+    // 2. Verifica o tamanho (opcional, mas recomendado)
+    if (compressedBase64.length > 200 * 1024) { // ~200KB
+      alert('Imagem muito grande após compressão. Tente outra foto.');
       return;
     }
 
-    const base64Image = await convertImageToBase64(file);
-    
-
+    // 4. Atualiza no banco de dados (usando a versão COMPRIMIDA)
     await databaseRef.child(user.uid).update({
-      fotoPerfil: base64Image
+      fotoPerfil: compressedBase64
     });
-    
 
-    updateProfileIcon(base64Image);
+    // 5. Atualiza a exibição
+    updateProfileIcon(compressedBase64);
+    
+    alert('Foto de perfil atualizada com sucesso!');
     
   } catch (error) {
     console.error('Erro ao atualizar foto:', error);

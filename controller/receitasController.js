@@ -40,13 +40,26 @@ categorias.forEach(categoria => {
 // Event listener para o input de imagem
 document.getElementById('imagem').addEventListener('change', async (event) => {
   const file = event.target.files[0];
-  if (file) {
-    try {
-      base64String = await convertImageToBase64(file);
-      console.log('Imagem convertida com sucesso');
-    } catch (error) {
-      console.error('Erro ao converter imagem:', error);
-    }
+  if (!file) return;
+
+  // Verifica se é uma imagem
+  if (!file.type.match('image.*')) {
+    alert('Por favor, selecione um arquivo de imagem válido (JPEG, PNG, etc.)');
+    return;
+  }
+
+  try {
+    
+    // Comprime a imagem antes de converter para Base64
+    base64String = await compressImage(file, 800, 0.6); // 800px largura, 60% qualidade
+    
+    console.log('Imagem comprimida e convertida. Tamanho:', Math.round(base64String.length/1024) + 'KB');
+  } catch (error) {
+    console.error('Erro ao processar imagem:', error);
+    alert('Erro ao processar a imagem. Tente novamente.');
+    base64String = null;
+  } finally {
+    document.getElementById('imagem-loader').style.display = 'none';
   }
 });
 
