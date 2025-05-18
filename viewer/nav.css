@@ -304,7 +304,7 @@ a{
   .area-hamburguer {
     position: fixed; 
     display: block;
-    margin-bottom: 55px;
+    margin-bottom: 60px;
     right: 35px;         
     z-index: 10;
   }
@@ -359,7 +359,7 @@ a{
   .menu-mobile {
     display: none;
     position: absolute;
-    /* distancia do menu pro X */
+    margin-top: 25px;
     top: 100px;
     right: 0;
     width: 200px;
