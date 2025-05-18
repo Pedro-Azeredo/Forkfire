@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fork&Fire</title>
+    <link rel="stylesheet" href="nav.css" />
+    <link rel="stylesheet" href="card.css" />
+    <link
+      rel="icon"
+      href="/forkfire/assets/images/favicon.ico"
+      type="image/x-icon"
+    />
+  </head>
+  <body>
+    <!-- nav -->
+     <div class="container-nav">
+      <nav class="nav">
+        <div class="logo">
+          <img src="/forkfire/assets/images/favicon.ico" alt="Logo" />
+        </div>
+        <ul class="nav-itens">
+          <li><a href="#" class="mudar">Receitas</a></li>
+          <li><a href="#" class="mudar">Categorias</a></li>
+          <li><a href="#" class="mudar">Suporte</a></li>
+        </ul>
+        
+        <!-- Botão para abrir o modal -->
+        <button id="abrirModalBtn">Adicionar Receita</button>
+
+        <div class="area-hamburguer">
+          <input type="checkbox" class="cb-falso" id="menu-toggle" />
+          <label for="menu-toggle" class="hamburguer">
+            <span></span>
+            <span></span>
+            <span></span>
+          </label>
+          <ul class="menu-mobile">
+            <li><a href="#">Receitas</a></li>
+            <li><a href="#">Categorias</a></li>
+            <li><a href="#">Suporte</a></li>
+            <!-- Botão para abrir o modal -->
+           <button id="abrirModalBtnMobile">Adicionar Receita</button>
+          </ul>
+        </div>
+
+      </nav>
+    </div>
+
+    <!-- Modal com o formulário -->
+    <div id="modalReceita" class="modal">
+      <div class="modal-content">
+        <span class="close" id="fecharModal">&times;</span>
+        <form id="receitaForm">
+          <fieldset>
+            <legend>Nova Receita</legend>
+
+            <label for="titulo">Título da Receita:</label>
+            <input
+              type="text"
+              id="titulo"
+              name="titulo"
+              placeholder="Ex: Bolo de Cenoura"
+              maxlength="20"
+              required
+            />
+
+            <label for="ingredientes">Ingredientes:</label>
+            <input
+              type="text"
+              id="ingredientes"
+              name="ingredientes"
+              placeholder="Ex: Cenoura, ovos, açúcar..."
+              required
+            />
+
+            <label for="categoria">Categoria:</label>
+            <input
+              type="text"
+              id="categoria"
+              name="categoria"
+              placeholder="Ex: Doces, Salgados..."
+              required
+            />
+
+            <label for="modoPreparo">Modo de Preparo:</label>
+            <textarea
+              id="modoPreparo"
+              name="modoPreparo"
+              rows="5"
+              placeholder="Descreva o passo a passo..."
+              required
+            ></textarea>
+
+            <label for="tempoPreparo">Tempo de Preparo (em minutos):</label>
+            <input
+              type="number"
+              id="tempoPreparo"
+              name="tempoPreparo"
+              min="1"
+              placeholder="Ex: 30"
+              required
+            />
+
+            <label for="foto">Foto</label>
+            <input id="imagem" type="file" required/>
+
+            <button type="submit" id="enviar">Enviar Receita</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+    <div class="receitas-container">
+      <div id="grade-receitas" class="grade-receitas"></div>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-database-compat.js"></script>
+
+    <!-- Inicialização e lógica -->
+    <script src="../config/firebase-init.js"></script>
+
+    <!-- Controller -->
+    <script src="../controller/authController.js"></script>
+    <script src="../controller/receitasController.js"></script>
+    
+
+    <!-- Utils -->
+    <script src="../utils/authVerification.js"></script>
+    <script src="../utils/utils.js"></script>
+  </body>
+</html>
+
+<script>
+  const abrirModalBtn = document.getElementById('abrirModalBtn');
+  const abrirModalBtnMobile = document.getElementById('abrirModalBtnMobile');
+  const modal = document.getElementById('modalReceita');
+  const fecharModalBtn = document.getElementById('fecharModal');
+
+  abrirModalBtn.onclick = () => {
+    modal.style.display = 'block';
+  };
+  
+    abrirModalBtnMobile.onclick = () => {
+    modal.style.display = 'block';
+  };
+
+  fecharModalBtn.onclick = () => {
+    modal.style.display = 'none';
+  };
+
+  // Fecha se clicar fora da área do modal
+  window.onclick = (event) => {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>

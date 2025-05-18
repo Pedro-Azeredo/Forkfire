@@ -61,6 +61,7 @@
               id="titulo"
               name="titulo"
               placeholder="Ex: Bolo de Cenoura"
+              maxlength="20"
               required
             />
 
@@ -74,13 +75,9 @@
             />
 
             <label for="categoria">Categoria:</label>
-            <input
-              type="text"
-              id="categoria"
-              name="categoria"
-              placeholder="Ex: Doces, Salgados..."
-              required
-            />
+            <select id="categoria" name="categoria" required>
+              <option value="" disabled selected>Selecione uma categoria...</option>
+            </select>
 
             <label for="modoPreparo">Modo de Preparo:</label>
             <textarea
@@ -102,7 +99,7 @@
             />
 
             <label for="foto">Foto</label>
-            <input id="imagem" type="file" />
+            <input id="imagem" type="file" required/>
 
             <button type="submit" id="enviar">Enviar Receita</button>
           </fieldset>
@@ -112,6 +109,10 @@
 
     <div class="receitas-container">
       <div id="grade-receitas" class="grade-receitas"></div>
+    </div>
+
+    <div id="loader" style="display: none;">
+      <img src="/forkfire/assets/images/gif1440.gif" alt="Carregando..." style="width: 400px; margin: 0 auto; display: block;">
     </div>
 
     <!-- Firebase SDKs -->
