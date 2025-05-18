@@ -25,7 +25,10 @@ body {
 }
 
 h1 {
-  color: #ff416c;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   margin-bottom: 20px;
   font-size: 32px;
 }
@@ -56,7 +59,7 @@ button {
   width: 45%;
   margin: 10px 5px;
   padding: 10px;
-  background-color: #ff416c;
+  background: linear-gradient(to right, #ff416c, #ff4b2b );
   color: white;
   border: none;
   border-radius: 8px;
@@ -85,15 +88,15 @@ button:hover {
   color: firebrick !important;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 370px) {
   .divLogin,
   .divCadastro {
-    width: 90%;
-    padding: 20px;
+    width: 80%;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 1);
   }
 
-  button {
-    width: 100%;
-    margin: 10px 0;
+  .divCadastro button {
+    width: 48%;
   }
 }
