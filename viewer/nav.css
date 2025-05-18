@@ -270,7 +270,7 @@ form {
     background: linear-gradient(to right, #ff4b2b, #ff416c);
     z-index: 1;
     border-radius: 100px;
-    top: 20px;
+    top: 0px;
     display: flex;
     align-items: center;
     color: white;
@@ -329,7 +329,7 @@ form {
     background: linear-gradient(to right, #ff4b2b, #ff416c);
     z-index: 1;
     border-radius: 100px;
-    top: 20px;
+    top: 0px;
     display: flex;
     align-items: center;
     color: white;
@@ -481,15 +481,7 @@ form {
   #abrirModalBtn {
       display: none;
   }
-  
-   /* #abrirModalBtnMobile {
-    margin: 20px auto;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-    display: flex;
-    width: 171.9px;
-  } */
-    
+
   .modal-content {
     max-width: 310px;
   }
