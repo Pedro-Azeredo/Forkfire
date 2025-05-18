@@ -23,7 +23,6 @@ function logar() {
       }, 2000);
 
       window.location.href = 'home.html';
-      console.log(user);
     })
     .catch((erro) => {
       console.error('Erro ao logar:', erro.code);
@@ -126,5 +125,17 @@ function cadastrar() {
       } else {
         alert('Erro ao fazer Cadastro: ' + erro.message);
       }
+    });
+}
+
+function logOut() {
+  auth
+    .signOut()
+    .then(() => {
+      console.log('Usuário deslogado com sucesso!');
+      window.location.href = 'index.html';
+    })
+    .catch((erro) => {
+      console.error('Erro ao deslogar:', erro);
     });
 }
