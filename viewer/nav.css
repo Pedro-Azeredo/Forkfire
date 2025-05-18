@@ -418,26 +418,22 @@ form {
     background-color: white;
   }
 
-  .menu-mobile {
-    display: none;
-    position: absolute;
-    margin-top: 25px;
-    top: 100px;
-    right: 0;
-    width: 200px;
-    background: linear-gradient(to right, #ff4b2b, #ff416c);
-    flex-direction: column;
-    padding: 1rem;
-    gap: 1rem;
-    border-radius: 8px;
-    z-index: 1;
-  }
-
   .cb-falso:checked ~ .menu-mobile {
     display: flex;
   }
 
-  .menu-mobile li {
+  .menu-mobile {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 180px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 20px;
+    z-index: 1;
     list-style: none;
   }
 
@@ -446,21 +442,28 @@ form {
     font-weight: bold;
     text-decoration: none;
   }
-
-  .menu-mobile a:hover {
-    text-decoration: underline;
-  }
   
   #abrirModalBtn {
-      display: none;
+    display: none;
   }
-  
-   #abrirModalBtnMobile {
-    margin: 20px auto;
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
+  /* botao abrir modal */
+  #abrirModalBtnMobile {
     display: flex;
-    width: 171.9px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 10px 5px;
+    background-color: white;
+    color: #ff4b2b;
+    gap: 5px;
+  }
+
+  #abrirModalBtnMobile a {
+    color: #ff4b2b
+  }
+
+  .menu-mobile li a {
+    margin-left: 5px;
   }
 
   .modal-content {
@@ -479,13 +482,13 @@ form {
       display: none;
   }
   
-   #abrirModalBtnMobile {
+   /* #abrirModalBtnMobile {
     margin: 20px auto;
     padding: 0.8rem 1.2rem;
     font-size: 1rem;
     display: flex;
     width: 171.9px;
-  }
+  } */
     
   .modal-content {
     max-width: 310px;
