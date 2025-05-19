@@ -7,7 +7,7 @@
 .grade-categorias {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  column-gap: 20px;
+  column-gap: 10px;
   row-gap: 10px;
   width: 90%;
   margin: 0 auto;

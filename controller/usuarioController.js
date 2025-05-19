@@ -45,7 +45,7 @@ fotoPerfilInput.addEventListener('change', async (e) => {
     // 5. Atualiza a exibição
     updateProfileIcon(compressedBase64);
     
-    alert('Foto de perfil atualizada com sucesso!');
+    console.log('Foto de perfil atualizada com sucesso!');
     
   } catch (error) {
     console.error('Erro ao atualizar foto:', error);
