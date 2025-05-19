@@ -6,16 +6,16 @@ const DATA_CACHE_NAME = "data-cache-v2";
 // Lista EXPLÍCITA de todos os arquivos estáticos para cache
 const FILES_TO_CACHE = [
   // HTML
-  "/home.html",
-  "/index.html",
+  "home.html",
+  "index.html",
   
   // CSS
-  "../viewer/static/nav.css",
-  "../viewer/static/card.css",
-  "../viewer/static/categoria.css",
-  "../viewer/static/style.css",
-  "../viewer/static/receita_detalhada.css",
-  "../viewer/static/avaliacao.css",
+  "forkfire/viewer/static/nav.css",
+  "forkfire/viewer/static/card.css",
+  "forkfire/viewer/static/categoria.css",
+  "forkfire/viewer/static/style.css",
+  "forkfire/viewer/static/receita_detalhada.css",
+  "forkfire/viewer/static/avaliacao.css",
   
   // JavaScript
   "firebase-init.js",
@@ -52,6 +52,17 @@ const FILES_TO_CACHE = [
   "/forkfire/assets/images/categorias/vegano-min.png",
   "/forkfire/assets/images/categorias/vegetariano-min.png"
 ];
+
+
+self.addEventListener('fetch', event => {
+  if (event.request.mode === 'navigate' && 
+      event.request.url.endsWith('/forkfire/')) {
+    event.respondWith(
+      Response.redirect('/forkfire/viewer/index.html')
+    );
+    return;
+  }
+});
 
 self.addEventListener("install", evt => {
   console.log("[Service Worker] Instalando");
