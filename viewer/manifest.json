@@ -2,14 +2,11 @@
   "name": "ForkFire",
   "short_name": "ForkFire",
   "description": "Um aplicativo de receitas para ajudar você a cozinhar com facilidade e praticidade.",
-  "categories": [
-    "food",
-    "lifestyle",
-    "productivity"
-  ],
+  "categories": ["food", "lifestyle", "productivity"],
   "start_url": "/viewer",
   "scope": "/",
   "id": "/",
+  
   "shortcuts": [
     {
       "name": "Início",
@@ -18,42 +15,83 @@
       "description": "Página inicial do aplicativo",
       "icons": [
         {
-          "src": "/icons/icon-96x96.png",
+          "src": "forkfire/icons/shortcut-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
       ]
     }
   ],
+  
   "icons": [
     {
       "src": "forkfire/icons/icon-72x72.png",
       "sizes": "72x72",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "forkfire/icons/icon-96x96.png",
       "sizes": "96x96",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "forkfire/icons/icon-144x144.png",
+      "sizes": "128x128",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "forkfire/icons/icon-144x144.png",
       "sizes": "144x144",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "forkfire/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "forkfire/icons/icon-512x512.png",
+      "sizes": "384x384",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "forkfire/icons/icon-72x72.png",
+      "sizes": "72x72",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "forkfire/icons/icon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "forkfire/icons/icon-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "forkfire/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "forkfire/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ],
+  
   "screenshots": [
     {
       "src": "forkfire/assets/images/screenshots/screenshot1-512x512.png",
@@ -61,13 +99,18 @@
       "type": "image/png",
       "platform": "wide",
       "label": "Tela principal do ForkFire"
+    },
+    {
+      "src": "forkfire/assets/images/screenshots/screenshot2-1024x768.png",
+      "sizes": "1024x768",
+      "type": "image/png",
+      "platform": "wide",
+      "label": "Visualização de receita"
     }
   ],
-  "display": "fullscreen",
-  "display_override": [
-    "fullscreen",
-    "window-controls-overlay"
-  ],
+  
+  "display": "standalone",
+  "display_override": "["window-controls-overlay"]",
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#ff4b2b",
