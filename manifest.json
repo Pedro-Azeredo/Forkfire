@@ -1,5 +1,6 @@
 {
-  "name": "Fork&Fire",
+  "name": "ForkFire",
+  "description": "Um aplicativo de receitas para ajudar você a cozinhar com facilidade e praticidade.",
   "short_name": "ForkFire",
   "categories": ["cookbook", "productivity"],
   "start_url": "/viewer",
@@ -14,7 +15,7 @@
   
   "icons": [
     {
-      "src": "windows11/SmallTile.scale-100.png",
+      "src": "forkfire/windows11/SmallTile.scale-100.png",
       "sizes": "71x71"
     },
     {
@@ -334,7 +335,7 @@
       "sizes": "256x256"
     },
     {
-      "src": "android/android-launchericon-512-512.png",
+      "src": "forkfire/android/android-launchericon-512-512.png",
       "sizes": "512x512"
     },
     {
