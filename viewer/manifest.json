@@ -18,7 +18,7 @@
       "description": "Página inicial do aplicativo",
       "icons": [
         {
-          "src": "/icons/icon-96x96.png",
+          "src": "/forkfire/viewer/icons/icon-96x96.png",
           "sizes": "96x96",
           "type": "image/png"
         }
