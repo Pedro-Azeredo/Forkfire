@@ -31,9 +31,25 @@ const categorias = [
 
 const imagensCategorias = {
   "Aperitivos": "/forkfire/assets/images/categorias/aperitivo.png",
-  "Bebidas": "/forkfire/assets/images/categorias/aperitivo.png",
-  "Bolos": "/forkfire/assets/images/categorias/aperitivo.png",
-  // ... adicione todas as categorias com suas imagens
+  "Bebidas": "/forkfire/assets/images/categorias/bebidas.png",
+  "Bolos": "/forkfire/assets/images/categorias/bolos.png",
+  "Carnes": "/forkfire/assets/images/categorias/carnes.png",
+  "Comida Árabe": "/forkfire/assets/images/categorias/comida_arabe.png",
+  "Comida Asiática": "/forkfire/assets/images/categorias/comida_asiatica.png",
+  "Comida Mexicana": "/forkfire/assets/images/categorias/comida_mexicana.png",
+  "Doces": "/forkfire/assets/images/categorias/doces.png",
+  "Gluten-Free": "/forkfire/assets/images/categorias/gluten_free.png",
+  "Lactose-Free": "/forkfire/assets/images/categorias/lactose_free.png",
+  "Lanches": "/forkfire/assets/images/categorias/lanches.png",
+  "Low Carb": "/forkfire/assets/images/categorias/low_carb.png",
+  "Massas": "/forkfire/assets/images/categorias/massas.png",
+  "Pães e Tortas": "/forkfire/assets/images/categorias/paes.png",
+  "Saladas": "/forkfire/assets/images/categorias/saladas.png",
+  "Salgados": "/forkfire/assets/images/categorias/salgados.png",
+  "Sobremesas": "/forkfire/assets/images/categorias/sobremesas.png",
+  "Sopas e Caldos": "/forkfire/assets/images/categorias/sopas.png",
+  "Vegano": "/forkfire/assets/images/categorias/vegano.png",
+  "Vegetariano": "/forkfire/assets/images/categorias/vegetariano.png"
 };
 
 const selectCategoria = document.getElementById('categoria');
