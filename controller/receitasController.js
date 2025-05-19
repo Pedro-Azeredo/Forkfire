@@ -238,7 +238,6 @@ function buscarTodasReceitas() {
 function renderizarReceitas(receitas, categoriaDesejada = null) {
   const receitasContent = document.getElementById('receitas-content');
   const loader = document.getElementById('loader');
-  // const dataFormatada = receitas.dataCriacao.toLocaleDateString('pt-BR');
   
   loader.style.display = 'block';
   receitasContent.innerHTML = '';
@@ -308,8 +307,9 @@ function renderizarCategorias() {
     categoriaElement.innerHTML = `
       <h3>${categoria}</h3>
     `;
-    
+
     categoriaElement.addEventListener('click', () => {
+      const receitas_buscar_todos = document.getElementsByClassName('receitas-buscar-todos')[0];
       if (categoria === "Todos") {
         buscarTodasReceitas();
       }
@@ -414,6 +414,16 @@ function mostrarDetalhesReceita(receita) {
       <!-- ... (mesmo conteúdo acima, mas com 'Anônimo' no lugar do nome) ... -->
     `;
   });
+}
+
+// renderizar todas as receitas ao clicar no botão
+const receitas_buscar_todos = document.getElementsByClassName('receitas-buscar-todos')[0];
+
+receitas_buscar_todos.onclick = () => {
+  buscarTodasReceitas();
+
+  categoriasContainer.style.display = 'none'; // Esconde as categorias
+  receitasContainer.style.display = 'block'; // Mostra as receitas
 }
 
 // Inicialização

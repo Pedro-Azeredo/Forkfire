@@ -50,7 +50,7 @@
               <i class="fas fa-plus fa-lg"></i>
                <a>Adicionar Receita</a>
             </but>
-            <li>
+            <li class='receitas-buscar-todos' onclick="buscarTodasReceitas()">
               <i class="fas fa-book"></i>
               <a href="#">Receitas</a>
             </li>
@@ -58,7 +58,7 @@
               <i class="fas fa-list"></i>
               <a href="#">Categorias</a>
             </li>
-            <li>
+            <li onclick="window.location.href='home.html'">
               <i class="fas fa-headset"></i>
               <a href="#">Suporte</a>
             </li>
@@ -81,6 +81,7 @@
     </div>
 
     <!-- Modal com o formulário para criar receitas -->
+  <div class='fix-modal'>
     <div id="modalReceita" class="modal">
       <div class="modal-content">
         <span class="close" id="fecharModal">&times;</span>
@@ -140,7 +141,7 @@
         </form>
       </div>
     </div>
-
+  </div>
     <!-- Onde ficam as categorias  -->
     <div class="categorias-container">
       <div id="grade-categorias" class="grade-categorias"></div>
