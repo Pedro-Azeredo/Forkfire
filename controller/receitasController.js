@@ -1,4 +1,6 @@
 const receitas = document.getElementById('grade-receitas');
+const categoriasContainer = document.getElementById('grade-categorias');
+const receitasContainer = document.querySelector('.receitas-container');
 const receitasRef = db.ref('/receitas');
 const receitaForm = document.getElementById('receitaForm');
 let base64String = null;
@@ -26,6 +28,13 @@ const categorias = [
   "Vegano",
   "Vegetariano" 
 ];
+
+const imagensCategorias = {
+  "Aperitivos": "/forkfire/assets/images/categorias/aperitivo.png",
+  "Bebidas": "/forkfire/assets/images/categorias/aperitivo.png",
+  "Bolos": "/forkfire/assets/images/categorias/aperitivo.png",
+  // ... adicione todas as categorias com suas imagens
+};
 
 const selectCategoria = document.getElementById('categoria');
 
@@ -99,48 +108,66 @@ receitaForm.addEventListener('submit', async (e) => {
 });
 
 // Função para buscar todas as receitas
-function buscarReceitas() {
-  const receitasRef = db.ref('receitas');
-  const container = document.getElementById('grade-receitas');
+function buscarReceitas(categoriaDesejada = null) {
   const loader = document.getElementById('loader');
+  const gradeReceitas = document.getElementById('grade-receitas');
   
-  // Mostra o loader
   loader.style.display = 'block';
-  container.innerHTML = '';
+  gradeReceitas.innerHTML = ''; // Limpa apenas a grade, não o container todo
 
-  receitasRef.on(
-    'value',
-    (snapshot) => {
-      const receitasData = snapshot.val();
-      
-      // Esconde o loader quando os dados chegarem
-      loader.style.display = 'none';
+  // Cria container para o botão e conteúdo
+  const contentWrapper = document.createElement('div');
+  contentWrapper.className = 'receitas-content-wrapper';
 
-      if (receitasData) {
-        renderizarReceitas(receitasData);
-      } else {
-        container.innerHTML = '<p class="sem-receitas">Nenhuma receita encontrada.</p>';
-      }
-    },
-    (error) => {
-      // Esconde o loader em caso de erro também
-      loader.style.display = 'none';
-      console.error('Erro ao buscar receitas:', error);
-      container.innerHTML = '<p class="erro-receitas">Ocorreu um erro ao carregar as receitas.</p>';
+  // Cria o botão de voltar
+  const voltarBtn = document.createElement('button');
+  voltarBtn.textContent = '← Voltar para Categorias';
+  voltarBtn.className = 'voltar-btn';
+  voltarBtn.onclick = () => {
+    document.querySelector('.receitas-container').style.display = 'none';
+    renderizarCategorias();
+  };
+
+  // Adiciona botão ao wrapper
+  contentWrapper.appendChild(voltarBtn);
+
+  // Cria container para as receitas
+  const receitasContent = document.createElement('div');
+  receitasContent.id = 'receitas-content';
+  contentWrapper.appendChild(receitasContent);
+
+  // Adiciona wrapper à grade
+  gradeReceitas.appendChild(contentWrapper);
+
+  // Busca receitas
+  receitasRef.once('value').then((snapshot) => {
+    loader.style.display = 'none';
+    const receitasData = snapshot.val();
+
+    if (receitasData) {
+      renderizarReceitas(receitasData, categoriaDesejada);
+    } else {
+      const mensagem = document.createElement('p');
+      mensagem.className = 'sem-receitas';
+      mensagem.textContent = 'Nenhuma receita encontrada nesta categoria.';
+      receitasContent.appendChild(mensagem);
     }
-  );
+    
+    document.querySelector('.receitas-container').style.display = 'block';
+  }).catch((error) => {
+    console.error("Erro ao buscar receitas:", error);
+    loader.style.display = 'none';
+  });
 }
 
 //renderiza as receitas na tela passando receota e categoria
 function renderizarReceitas(receitas, categoriaDesejada = null) {
-  const container = document.getElementById('grade-receitas');
+  const receitasContent = document.getElementById('receitas-content');
   const loader = document.getElementById('loader');
   
-  // Mostra o loader enquanto limpa e renderiza
   loader.style.display = 'block';
-  container.innerHTML = '';
+  receitasContent.innerHTML = '';
 
-  // Usamos setTimeout para garantir que a UI tenha tempo de atualizar
   setTimeout(() => {
     let receitasEncontradas = false;
     
@@ -153,7 +180,6 @@ function renderizarReceitas(receitas, categoriaDesejada = null) {
         receitasEncontradas = true;
         const card = document.createElement('div');
         card.className = 'receita-card';
-        
         card.innerHTML = `
           <div class="receita-image">
             ${receita.foto ? `<img src="${receita.foto}" alt="${receita.titulo}" class="receita-imagem">` : '<div class="sem-imagem">Sem imagem</div>'}
@@ -169,18 +195,44 @@ function renderizarReceitas(receitas, categoriaDesejada = null) {
           </div>
         `;
         
-        container.appendChild(card);
+        receitasContent.appendChild(card);
       });
     });
     
-    // Esconde o loader após renderizar
     loader.style.display = 'none';
     
     if (!receitasEncontradas) {
-      container.innerHTML = '<p class="sem-receitas">Nenhuma receita encontrada nesta categoria.</p>';
+      const mensagem = document.createElement('p');
+      mensagem.className = 'sem-receitas';
+      mensagem.textContent = 'Nenhuma receita encontrada nesta categoria.';
+      receitasContent.appendChild(mensagem);
     }
-  }, 100); // Pequeno delay para garantir que o loader apareça
+  }, 100);
+}
+
+// função para renderizar as categorias
+function renderizarCategorias() {
+  categoriasContainer.innerHTML = '';
+  categoriasContainer.style.display = 'grid'; // Mostra o container de categorias
+  receitasContainer.style.display = 'none'; // Esconde o container de receitas
+  
+  categorias.forEach(categoria => {
+    const categoriaElement = document.createElement('div');
+    categoriaElement.className = 'categoria-card';
+    categoriaElement.style.backgroundImage = `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${imagensCategorias[categoria]})`;
+    categoriaElement.innerHTML = `
+      <h3>${categoria}</h3>
+    `;
+    
+    categoriaElement.addEventListener('click', () => {
+      buscarReceitas(categoria);
+      categoriasContainer.style.display = 'none'; // Esconde as categorias
+      receitasContainer.style.display = 'block'; // Mostra as receitas
+    });
+    
+    categoriasContainer.appendChild(categoriaElement);
+  });
 }
 
 // Inicialização
-buscarReceitas();
+renderizarCategorias();

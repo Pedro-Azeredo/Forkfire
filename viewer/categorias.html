@@ -4,8 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fork&Fire</title>
-    <link rel="stylesheet" href="nav.css" />
-    <link rel="stylesheet" href="card.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
+    <link rel="stylesheet" href="../viewer/static/categoria.css" />
     <link
       rel="icon"
       href="/forkfire/assets/images/favicon.ico"
@@ -26,21 +26,48 @@
         </ul>
         
         <!-- Botão para abrir o modal -->
-        <button id="abrirModalBtn">Adicionar Receita</button>
+        <button id="abrirModalBtn">
+          Adicionar Receita
+        </button>
 
         <div class="area-hamburguer">
           <input type="checkbox" class="cb-falso" id="menu-toggle" />
+          <!-- 3 barrinhas -->
           <label for="menu-toggle" class="hamburguer">
             <span></span>
             <span></span>
             <span></span>
           </label>
           <ul class="menu-mobile">
-            <li><a href="#">Receitas</a></li>
-            <li><a href="#">Categorias</a></li>
-            <li><a href="#">Suporte</a></li>
-            <!-- Botão para abrir o modal -->
-           <button id="abrirModalBtnMobile">Adicionar Receita</button>
+          <!-- Botão para abrir o modal -->
+            <but id="abrirModalBtnMobile">
+              <i class="fas fa-plus fa-lg"></i>
+               <a>Adicionar Receita</a>
+            </but>
+            <li>
+              <i class="fas fa-book"></i>
+              <a href="#">Receitas</a>
+            </li>
+            <li>
+              <i class="fas fa-list"></i>
+              <a href="#">Categorias</a>
+            </li>
+            <li>
+              <i class="fas fa-headset"></i>
+              <a href="#">Suporte</a>
+            </li>
+            <hhr></hhr>
+            <li class="liUser">
+              <div class='coringa'>
+                <label for="fotoPerfilInput" style="cursor:pointer;">
+                  <i class="fas fa-user" id='iconPerfil'></i>
+                  <a class="nomeUsuario" href="#">Olá, User</a>
+                </label>
+                <input type="file" id="fotoPerfilInput" accept="image/*" style="display:none;">
+              </div>
+              <input type="file" id="fotoPerfilInput" style="display:none;">
+              <i id='exit' class='fas fa-2x' onclick='logOut()'></i>
+            </li>
           </ul>
         </div>
 
@@ -75,13 +102,9 @@
             />
 
             <label for="categoria">Categoria:</label>
-            <input
-              type="text"
-              id="categoria"
-              name="categoria"
-              placeholder="Ex: Doces, Salgados..."
-              required
-            />
+            <select id="categoria" name="categoria" required>
+              <option value="" disabled selected>Selecione uma categoria...</option>
+            </select>
 
             <label for="modoPreparo">Modo de Preparo:</label>
             <textarea
@@ -111,8 +134,9 @@
       </div>
     </div>
 
-    <div class="receitas-container">
-      <div id="grade-receitas" class="grade-receitas"></div>
+    <!-- animação -->
+    <div id="loader" style="display: none;">
+      <img src="/forkfire/assets/images/gif1440.gif" alt="Carregando..." style="width: 400px; margin: 0 auto; display: block;">
     </div>
 
     <!-- Firebase SDKs -->
@@ -126,6 +150,7 @@
     <!-- Controller -->
     <script src="../controller/authController.js"></script>
     <script src="../controller/receitasController.js"></script>
+    <script src="../controller/usuarioController.js"></script>
     
 
     <!-- Utils -->

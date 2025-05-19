@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Fork&Fire</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
-    <link rel="stylesheet" href="nav.css" />
-    <link rel="stylesheet" href="card.css" />
+    <link rel="stylesheet" href="../viewer/static/nav.css"/>
+    <link rel="stylesheet" href="../viewer/static/card.css"/>
+    <link rel="stylesheet" href="../viewer/static/categoria.css"/>
     <link
       rel="icon"
       href="/forkfire/assets/images/favicon.ico"
@@ -14,7 +15,7 @@
     />
   </head>
   <body>
-    <!-- nav -->
+    <!-- Nav | Menu hamburguer -->
      <div class="container-nav">
       <nav class="nav">
         <div class="logo">
@@ -75,7 +76,7 @@
       </nav>
     </div>
 
-    <!-- Modal com o formulário -->
+    <!-- Modal com o formulário para criar receitas -->
     <div id="modalReceita" class="modal">
       <div class="modal-content">
         <span class="close" id="fecharModal">&times;</span>
@@ -135,11 +136,17 @@
       </div>
     </div>
 
+    <!-- Onde ficam as categorias  -->
+    <div class="categorias-container">
+      <div id="grade-categorias" class="grade-categorias"></div>
+    </div>
+
+    <!-- Onde ficam aninhadas as receitas -->
     <div class="receitas-container">
       <div id="grade-receitas" class="grade-receitas"></div>
     </div>
 
-    <!-- animação -->
+    <!-- Animação de carregamento -->
     <div id="loader" style="display: none;">
       <img src="/forkfire/assets/images/gif1440.gif" alt="Carregando..." style="width: 400px; margin: 0 auto; display: block;">
     </div>

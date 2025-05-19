@@ -1,0 +1,444 @@
+body {
+    height: 100vh;
+    align-items: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+}
+
+.nav {
+    margin: 10px auto;
+    padding: 14px 0;
+    width: 1410px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    z-index: 1;
+    border-radius: 100px;
+    position: relative;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 49px;
+}
+
+a{
+    color: white;
+    text-decoration: none;
+}
+
+.logo {
+    margin-left: 40px;
+    margin-right: 100px;
+    max-width: 124px;
+    display: flex;
+    
+}
+
+.logo img {
+    max-width: 100%;
+    cursor: pointer;
+    filter: brightness(0) invert(1); /*incredible*/
+}
+
+.nav-itens {
+    list-style: none;
+    display: flex;
+}
+
+.nav ul li {
+    cursor: pointer;
+}
+
+.mudar {
+    margin-left: 35px;
+    display: inline-block;
+}
+
+.mudar:hover {
+    text-decoration: solid underline white 3px;
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-nav {
+    display: none;
+    margin-left: 45px;
+    border-radius: 9999px;
+    padding: 8px 40px;
+    cursor: pointer;
+    border: 2px solid white;
+    color: none;
+    background-color: transparent;
+}
+
+.btn-nav:hover {
+    scale: 1.1;
+    transition: all 0.2s ease-in-out;
+    background-color: rgba(233, 61, 84, 0.68);
+}
+
+
+
+.wrapper ul li:hover,
+.wrapper a:hover {
+    transform: translateX(5px);
+    color: white;
+    transition: all 0.2s ease-in-out;
+}
+
+.normal {
+    color: white;
+}
+
+.anormal {
+    color: #ff9800;
+}
+
+.anormal:hover {
+    color: #321c61;
+    transition: all 0.2s ease-in-out;
+}
+
+.area-hamburguer {
+  display: none;
+}
+
+/* Aqui é pro modal */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 2rem;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 500px;
+    border-radius: 8px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  .close:hover {
+    color: black;
+  }
+
+  form label {
+    display: block;
+    margin-top: 1rem;
+  }
+
+  input, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.3rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  .container-btn {
+    display: flex; 
+    align-items: center;
+    width: 100%;
+  }
+
+  #abrirModalBtn {
+    margin: 20px auto;
+    padding: 0.8rem 1.2rem;
+    font-size: 1rem;
+    display: flex;
+    width: 171.9px;
+  }
+
+/* Aqui é só para o form da Receita */
+
+form {
+    max-width: 500px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+  }
+  
+  fieldset {
+    border: none;
+    padding: 0;
+  }
+  
+  legend {
+    font-size: 1.4rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    color: #333;
+  }
+  
+  label {
+    display: block;
+    margin-top: 1rem;
+    margin-bottom: 0.3rem;
+    font-weight: bold;
+    color: #444;
+  }
+  
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+  
+  textarea {
+    resize: vertical;
+  }
+  
+  button[type="submit"] {
+    margin-top: 1.5rem;
+    width: 100%;
+    padding: 0.7rem;
+    background-color: firebrick;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #e55c1d;
+  }
+
+/* Começo do media query */
+
+@media (max-width: 1600px) {
+
+    .registrar {
+    display: none;
+    justify-content: flex-end;
+      /* margin-left: 590px; */
+    margin-left: 380px;
+    }
+}
+
+@media (max-width: 884px) {
+  body {
+    width: 100%;
+    height: 100%;
+  }
+
+  .container-nav {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .nav {
+    padding: 14px 0;
+    width: 390px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    z-index: 1;
+    border-radius: 100px;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    color: white;
+    height: 49px;
+    justify-content: space-between;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+}
+
+.logo {
+    margin-left: 5%;
+    max-width: 100px;
+    display: flex;
+    
+}
+
+.logo img {
+    max-width: 100%;
+    cursor: pointer;
+    filter: brightness(0) invert(1); /*incredible*/
+}
+
+.nav-itens {
+    display: none;
+}
+
+.nav ul li {
+    cursor: pointer;
+}
+
+.registrar, .btn-nav {
+  display: none;
+}
+
+  .area-hamburguer {
+    display: block;    
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 5px 1fr;
+    margin-right: 25px;
+    margin-bottom: 10px;
+  }
+
+  .cb-falso {
+    width: 40px;
+    height: 40px;
+    opacity: 0;
+    z-index: 3;
+    cursor: pointer;
+  }
+
+  .hamburguer {
+    display: flex;
+    z-index: 2;
+    width: 35px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hamburguer span {
+    background-color: white;
+    height: 4px;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .cb-falso:checked + label span:nth-child(1) {
+    transform-origin: 0% 0%;
+    transform: rotate(45deg) scaleX(1.10);
+    background-color: white;
+  }
+
+  .cb-falso:checked + label span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .cb-falso:checked + label span:nth-child(3) {
+    transform-origin: 0% 100%;
+    transform: rotate(-45deg) scaleX(1.10);
+    background-color: white;
+  }
+
+  .cb-falso:checked ~ .menu-mobile {
+    display: flex;
+  }
+
+  .menu-mobile {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    width: 180px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    border-radius: 20px;
+    z-index: 1;
+    list-style: none;
+  }
+
+  .menu-mobile a {
+    color: white;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  
+  #abrirModalBtn {
+    display: none;
+  }
+  /* botao abrir modal */
+  #abrirModalBtnMobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    padding: 10px 5px;
+    background-color: white;
+    color: #ff4b2b;
+    gap: 5px;
+  }
+
+  #abrirModalBtnMobile a {
+    color: #ff4b2b
+  }
+
+  .menu-mobile li a {
+    margin-left: 5px;
+  }
+
+  .menu-mobile hhr {
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.432);
+  }
+
+  .liUser{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .liUser label {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  #exit{
+    color: rgba(0,0,0,0.7);
+  }
+
+  .modal-content {
+    max-width: 350px;
+  }
+
+
+}
+
+@media (max-width: 390px) {
+  .nav {
+      width: 345px;
+      height: 49px;
+  }
+
+  .modal-content {
+    max-width: 310px;
+  }
+}
+
+

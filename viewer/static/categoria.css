@@ -1,0 +1,71 @@
+
+.categorias-container {
+  width: 100%;
+  display: grid;
+}
+
+/* Grade de categorias */
+.grade-categorias {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 20px;
+  row-gap: 10px;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Cards de categoria */
+.categoria-card {
+  aspect-ratio: 1/0.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid firebrick;
+}
+
+.categoria-card h3 {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+  padding: 10px;
+}
+
+.categoria-card:hover {
+  transform: scale(1.03);
+}
+
+/* Botão voltar */
+.voltar-btn {
+  background-color: firebrick;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  align-self: flex-start; /* Alinha à esquerda */
+  margin-bottom: 10px;
+}
+
+.sem-receitas {
+  grid-column: 1 / -1; /* Ocupa todas as colunas */
+  text-align: center;
+  color: #666;
+  padding: 20px;
+}
+
+.voltar-btn:hover {
+  background-color: #ff5252;
+}
+
+/* Esconde o container de receitas inicialmente */

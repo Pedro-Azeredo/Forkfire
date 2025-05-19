@@ -1,0 +1,102 @@
+/* Resetando margens e preenchimentos */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.divLogin,
+.divCadastro {
+  background-color: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 320px;
+  text-align: center;
+}
+
+h1 {
+  background: linear-gradient(to right, #ff4b2b, #ff416c);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+h4 {
+  color: #333;
+  margin-bottom: 20px;
+  font-weight: normal;
+}
+
+label {
+  display: block;
+  margin-bottom: 15px;
+  color: #555;
+  text-align: left;
+}
+
+input[type='text'],
+input[type='password'] {
+  width: 100%;
+  padding: 8px; /* Um pouco mais compacto */
+  margin-top: 3px; /* Reduzido */
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button {
+  width: 45%;
+  margin: 10px 5px;
+  padding: 10px;
+  background: linear-gradient(to right, #ff416c, #ff4b2b );
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #ff4b2b;
+}
+
+.esconder {
+  display: none;
+}
+
+.bordaVermelha {
+  border: 1px solid firebrick !important;
+}
+
+.erroVerde {
+  color: forestgreen !important;
+}
+
+.erroVermelho {
+  color: firebrick !important;
+}
+
+@media (max-width: 370px) {
+  .divLogin,
+  .divCadastro {
+    width: 80%;
+    padding: 25px;
+    background-color: rgba(255, 255, 255, 1);
+  }
+
+  .divCadastro button {
+    width: 48%;
+  }
+}
