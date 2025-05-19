@@ -55,6 +55,9 @@ async function enviarAvaliacao() {
             });
 
             console.log('Avaliação enviada com sucesso!');
+
+            // await atualizarMediaReceita(receitaAtual, avaliacao);
+
         } catch (error) {
             console.error('Erro ao enviar avaliação:', error);
         }
@@ -68,6 +71,7 @@ async function enviarAvaliacao() {
         // Recarrega as avaliações
         carregarAvaliacoes(receitaAtual);
 
+
     } catch (error) {
         console.error('Erro ao enviar avaliação:', error);
         alert('Ocorreu um erro ao enviar sua avaliação: ' + error.message);
@@ -75,27 +79,54 @@ async function enviarAvaliacao() {
 }
 
 // Função para atualizar a média de avaliações da receita
-// async function atualizarMediaReceita(receita, novaAvaliacao) {
-//     const avaliacoesRef = db.ref('avaliacoes').orderByChild('receitaId').equalTo(`${receita.criadoPor}/${receita.dataCriacao}`);
-//     const snapshot = await avaliacoesRef.once('value');
-    
-//     let total = 0;
-//     let count = 0;
-    
-//     snapshot.forEach(childSnapshot => {
-//         const avaliacao = childSnapshot.val();
-//         total += avaliacao.avaliacao;
-//         count++;
-//     });
-    
-//     const media = count > 0 ? (total / count) : 0;
-    
-//     // Atualiza a receita no Firebase
-//     await db.ref(`receitas/${receita.criadoPor}/${receita.dataCriacao}`).update({
-//         avaliacaoMedia: media.toFixed(1),
-//         totalAvaliacoes: count
-//     });
-// }
+async function atualizarMediaReceita(receita, novaAvaliacao) {
+    try {
+        // Busca todas as avaliações no banco de dados
+        const avaliacoesRef = db.ref('avaliacoes');
+        const snapshot = await avaliacoesRef.once('value');
+        
+        let total = 0;
+        let count = 0;
+        
+        // Verifica se existem avaliações
+        if (snapshot.exists()) {
+            const avaliacoes = snapshot.val();
+            
+            // Percorre todos os usuários que fizeram avaliações
+            Object.keys(avaliacoes).forEach(usuarioId => {
+                // Percorre todas as avaliações deste usuário
+                Object.keys(avaliacoes[usuarioId]).forEach(timestamp => {
+                    const avaliacao = avaliacoes[usuarioId][timestamp];
+                    
+                    // Verifica se a avaliação é para esta receita
+                    if (avaliacao.receitaId === receita.dataCriacao.toString()) {
+                        total += avaliacao.nota; // Note que mudamos de 'avaliacao' para 'nota'
+                        count++;
+                    }
+                });
+            });
+        }
+        
+        // Se for uma nova avaliação, adiciona ao cálculo
+        if (novaAvaliacao) {
+            total += novaAvaliacao;
+            count++;
+        }
+        
+        const media = count > 0 ? (total / count) : 0;
+        
+        // Atualiza a receita no Firebase
+        await db.ref(`receitas/${receita.criadoPor}/${receita.dataCriacao}`).update({
+            avaliacaoMedia: media.toFixed(1),
+            totalAvaliacoes: count
+        });
+        
+        console.log('Média atualizada:', media.toFixed(1));
+    } catch (error) {
+        console.error('Erro ao atualizar média:', error);
+        throw error; // Rejeita a promise para que o erro possa ser tratado na função chamadora
+    }
+}
 
 // Função para carregar as avaliações existentes
 function carregarAvaliacoes(receita) {

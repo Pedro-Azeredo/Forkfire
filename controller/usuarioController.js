@@ -56,3 +56,4 @@ fotoPerfilInput.addEventListener('change', async (e) => {
 function trocarFoto() {
   fotoPerfilInput.click();
 }
+

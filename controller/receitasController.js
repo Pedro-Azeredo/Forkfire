@@ -238,6 +238,7 @@ function buscarTodasReceitas() {
 function renderizarReceitas(receitas, categoriaDesejada = null) {
   const receitasContent = document.getElementById('receitas-content');
   const loader = document.getElementById('loader');
+  // const dataFormatada = receitas.dataCriacao.toLocaleDateString('pt-BR');
   
   loader.style.display = 'block';
   receitasContent.innerHTML = '';
@@ -250,9 +251,13 @@ function renderizarReceitas(receitas, categoriaDesejada = null) {
         if (categoriaDesejada && receita.categoria !== categoriaDesejada) {
           return;
         }
-        
+
+
         receitasEncontradas = true;
         const card = document.createElement('div');
+        const dataCriacao = new Date(Number(receita.dataCriacao));
+        const dataFormatada = dataCriacao.toLocaleDateString('pt-BR');
+
         card.className = 'receita-card';
         card.innerHTML = `
           <div class="receita-image">
@@ -266,6 +271,7 @@ function renderizarReceitas(receitas, categoriaDesejada = null) {
             <div class="receita-categoria">
               <span class="categoria">${receita.categoria}</span>
             </div>
+              <p class="cardDataFormatada">Criado em ${dataFormatada}</p>
           </div>
         `;
         

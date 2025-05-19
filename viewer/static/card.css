@@ -101,6 +101,14 @@
   gap: 20px;
 }
 
+.cardDataFormatada{
+  display: flex;
+  font-size: 0.6rem;
+  color: gray;
+  font-weight: 300;
+  margin: 20px 0 0 0;
+}
+
 /* Responsividade */
 @media (min-width: 1280px) {
 
