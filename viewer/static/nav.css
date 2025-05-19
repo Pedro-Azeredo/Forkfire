@@ -34,7 +34,8 @@ a{
 }
 
 .logo img {
-    max-width: 100%;
+    width: 54px;
+    height: 54px;
     cursor: pointer;
     filter: brightness(0) invert(1); /*incredible*/
 }
