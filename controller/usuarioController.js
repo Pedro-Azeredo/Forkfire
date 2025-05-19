@@ -2,7 +2,6 @@ const databaseRef = firebase.database().ref('usuarios');
 const fotoPerfilInput = document.getElementById('fotoPerfilInput');
 const userIcon = document.querySelector('.fa-user');
 
-
 function updateProfileIcon(imageBase64) {
   if (userIcon.classList.contains('fa-user')) {
     userIcon.classList.remove('fa-user');

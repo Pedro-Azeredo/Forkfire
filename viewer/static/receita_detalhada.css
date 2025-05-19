@@ -56,7 +56,6 @@
 .receita-detalhes-meta p {
   font-weight: 400;
   margin: 0;
-
 }
 
 .receita-detalhes-section {
@@ -78,7 +77,7 @@
   white-space: pre-line;
 }
 
-@media (max-width: 359px) {
+@media (max-width: 360px) {
 
     .receita-detalhes-imagem {
         width: 324px;

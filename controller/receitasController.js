@@ -264,21 +264,27 @@ function mostrarDetalhesReceita(receita) {
   const dataCriacao = new Date(Number(receita.dataCriacao));
   const dataFormatada = dataCriacao.toLocaleDateString('pt-BR');
   
-  // Preenche os detalhes
-  detalhesContent.innerHTML = `
-    <button class="voltar-btn" id="voltarReceitas">
-      <i class="fas fa-arrow-left"></i> Voltar para Receitas
-    </button>
+  // Busca o nome do usuário no Realtime Database
+  const userRef = db.ref(`usuarios/${receita.criadoPor}`);
+  userRef.once('value').then((snapshot) => {
+    const usuario = snapshot.val();
+    const nomeUsuario = usuario ? usuario.nome : 'Anônimo';
+    
+    // Preenche os detalhes após obter o nome do usuário
+    detalhesContent.innerHTML = `
+      <button class="voltar-btn" id="voltarReceitas">
+        <i class="fas fa-arrow-left"></i> Voltar para Receitas
+      </button>
 
-    <div class="receita-detalhes-contorno">
-      ${receita.foto ? `<img src="${receita.foto}" alt="${receita.titulo}" class="receita-detalhes-imagem">` : ''}
-      <h1 class="receita-detalhes-titulo">${receita.titulo}</h1>
-    </div>
-      
+      <div class="receita-detalhes-contorno">
+        ${receita.foto ? `<img src="${receita.foto}" alt="${receita.titulo}" class="receita-detalhes-imagem">` : ''}
+        <h1 class="receita-detalhes-titulo">${receita.titulo}</h1>
+      </div>
+        
       <div class="receita-detalhes-meta">
         <span><i class="fas fa-clock"></i> <p>${receita.tempoPreparo} min</p></span>
         <span><i class="fas fa-calendar-alt"></i> <p>${dataFormatada}</p></span>
-        <span><i class="fas fa-user"></i> <p>${receita.criadoPor || 'Anônimo'}</p></span>
+        <span><i class="fas fa-user"></i> <p>${nomeUsuario}</p></span>
         <span><i class="fas fa-tag"></i> <p>${receita.categoria}</p></span>
       </div>
       
@@ -291,17 +297,25 @@ function mostrarDetalhesReceita(receita) {
         <h3>Modo de Preparo</h3>
         <div class="receita-detalhes-preparo">${receita.modoPreparo}</div>
       </div>
-  `;
-  
-  // Configura o botão de voltar
-  document.getElementById('voltarReceitas').addEventListener('click', () => {
-    detalhesContainer.style.display = 'none';
-    document.querySelector('.receitas-container').style.display = 'block';
+    `;
+    
+    // Configura o botão de voltar
+    document.getElementById('voltarReceitas').addEventListener('click', () => {
+      detalhesContainer.style.display = 'none';
+      document.querySelector('.receitas-container').style.display = 'block';
+    });
+    
+    // Mostra os detalhes e esconde a lista
+    detalhesContainer.style.display = 'block';
+    document.querySelector('.receitas-container').style.display = 'none';
+    
+  }).catch((error) => {
+    console.error("Erro ao buscar nome do usuário:", error);
+    // Se houver erro, mostra sem o nome
+    detalhesContent.innerHTML = `
+      <!-- ... (mesmo conteúdo acima, mas com 'Anônimo' no lugar do nome) ... -->
+    `;
   });
-  
-  // Mostra os detalhes e esconde a lista
-  detalhesContainer.style.display = 'block';
-  document.querySelector('.receitas-container').style.display = 'none';
 }
 
 // Inicialização
