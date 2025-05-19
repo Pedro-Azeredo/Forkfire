@@ -1,78 +1,124 @@
 "use strict";
 
-// Um Service Worker se comporta como um servidor proxy situado entre o navegador, uma aplicação web, e a rede 
-// (quando esta estiver disponível). Eles servem, dentre outras coisas, para possibilitar a criação de experiências 
-// OFFLINES eficientes, interceptando requisições de rede (agindo adequadamente de acordo com o status atual da conexão)  
-// e atualizar os assets que residem no servidor. 
+const CACHE_NAME = "static-cache-v3";
+const DATA_CACHE_NAME = "data-cache-v2";
 
-
-const CACHE_NAME = "static-cache-v2";
-const DATA_CACHE_NAME = "data-cache-v1";
-
+// Lista EXPLÍCITA de todos os arquivos estáticos para cache
 const FILES_TO_CACHE = [
-  "/manifest.json",
-  "../viewer",
-  "../utils",
-  "../controller",
-  "../config",
-  "../assets"
+  // HTML
+  "/home.html",
+  "/index.html",
+  
+  // CSS
+  "../viewer/static/nav.css",
+  "../viewer/static/card.css",
+  "../viewer/static/categoria.css",
+  "../viewer/static/style.css",
+  "../viewer/static/receita_detalhada.css",
+  
+  // JavaScript
+  "firebase-init.js",
+  "../controller/authController.js",
+  "../controller/receitasController.js",
+  "../controller/usuarioController.js",
+  "../utils/authVerification.js",
+  "../utils/utils.js",
+  
+  // Imagens e ícones
+  "../forkfire/assets/images/favicon.ico",
+  "../forkfire/assets/images/gif1440.gif",
+  "../forkfire/assets/images/logo_branca_forkfire.png",
+  
+  // Imagens de categorias (adicione TODAS que você usa)
+  "/forkfire/assets/images/categorias/todos-min.png",
+  "/forkfire/assets/images/categorias/aperitivo-min.png",
+  "/forkfire/assets/images/categorias/bebidas-min.png",
+  "/forkfire/assets/images/categorias/bolos-min.png",
+  "/forkfire/assets/images/categorias/carnes-min.png",
+  "/forkfire/assets/images/categorias/comida_arabe-min.png",
+  "/forkfire/assets/images/categorias/comida_asiatica-min.png",
+  "/forkfire/assets/images/categorias/comida_mexicana-min.png",
+  "/forkfire/assets/images/categorias/doces-min.png",
+  "/forkfire/assets/images/categorias/gluten_free-min.png",
+  "/forkfire/assets/images/categorias/lanches-min.png",
+  "/forkfire/assets/images/categorias/low_carb-min.png",
+  "/forkfire/assets/images/categorias/massas-min.png",
+  "/forkfire/assets/images/categorias/paes-min.png",
+  "/forkfire/assets/images/categorias/saladas-min.png",
+  "/forkfire/assets/images/categorias/salgados-min.png",
+  "/forkfire/assets/images/categorias/sobremesas-min.png",
+  "/forkfire/assets/images/categorias/sopas-min.png",
+  "/forkfire/assets/images/categorias/vegano-min.png",
+  "/forkfire/assets/images/categorias/vegetariano-min.png"
 ];
 
-//--------------------------------------------------------------------------------//
-
-// 'self' é equivalente ao window.self (logo se refere à janela do navegador) e é usado somente em navegadores 
-//
-// Estamos associando um Listener ao evento 'install'. Se o evento ocorrer, o código será executado.
-self.addEventListener("install", evt =>  {
-  console.log("[App]Instalação");
-  // 'caches' é uma variável global que retorna o CacheStorage do contexto atual.
-  // 'caches.keys' retorna uma Promise que retornará um array com o nome de todos objetos armazenados no cache
-  caches.keys().then(keyList => {
-    return Promise.all(
-      // O parâmetro passado para keyList é um array de objetos Promise. Quando todas as promises estiverem fulfilled, Promise.all retornará 
-      keyList.map(key => {
-        if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-          console.log("[App] Removendo cache antigo", key);
-          return caches.delete(key);
-        }
-      })
-    );
-  });
-
+self.addEventListener("install", evt => {
+  console.log("[Service Worker] Instalando");
+  
   evt.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      console.log("[App] Pré-caching dos arquivos ", cache);
-      return cache.addAll(FILES_TO_CACHE);
-    })
+    caches.open(CACHE_NAME)
+      .then(cache => {
+        console.log("[Service Worker] Pré-cache de arquivos estáticos");
+        return cache.addAll(FILES_TO_CACHE);
+      })
+      .then(() => self.skipWaiting())
   );
-  self.skipWaiting();
 });
 
-//--------------------------------------------------------------------------------//
-
 self.addEventListener("activate", evt => {
-  console.log("[App] Activate");
+  console.log("[Service Worker] Ativando");
+  
   evt.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
         keyList.map(key => {
           if (key !== CACHE_NAME && key !== DATA_CACHE_NAME) {
-            console.log("[App] Removendo cache antigo", key);
+            console.log("[Service Worker] Removendo cache antigo", key);
             return caches.delete(key);
           }
         })
       );
     })
   );
+  
   self.clients.claim();
 });
 
-//--------------------------------------------------------------------------------//
-
-self.addEventListener('fetch', event => {
-  console.log('evento fetch', event)
-  //event.respondWith(
-  //  caches.match(event.request) // check if the request has already been cached
-  //  .then(cached => cached || fetch(event.request)) // otherwise request network
-  //);
+self.addEventListener("fetch", evt => {
+  // Cache-first para arquivos estáticos
+  if (evt.request.url.includes('/static/') || 
+      evt.request.url.includes('/assets/')) {
+    evt.respondWith(
+      caches.match(evt.request)
+        .then(cachedResponse => {
+          return cachedResponse || fetch(evt.request);
+        })
+    );
+    return;
+  }
+  
+  // Network-first para dados dinâmicos (API, Firebase)
+  if (evt.request.url.includes('/api/') || 
+      evt.request.url.includes('firebaseio.com')) {
+    evt.respondWith(
+      fetch(evt.request)
+        .then(response => {
+          // Clona a resposta para armazenar no cache
+          const responseClone = response.clone();
+          caches.open(DATA_CACHE_NAME)
+            .then(cache => cache.put(evt.request, responseClone));
+          return response;
+        })
+        .catch(() => {
+          return caches.match(evt.request);
+        })
+    );
+    return;
+  }
+  
+  // Fallback genérico
+  evt.respondWith(
+    fetch(evt.request)
+      .catch(() => caches.match('/home.html')) // Fallback offline
+  );
 });

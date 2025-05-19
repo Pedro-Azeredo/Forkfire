@@ -62,6 +62,7 @@ categorias.forEach(categoria => {
   option.value = categoria;
   option.textContent = categoria;
   selectCategoria.appendChild(option);
+  
 });
 
 // Event listener para o input de imagem

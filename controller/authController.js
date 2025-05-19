@@ -9,7 +9,6 @@ function logar() {
     .signInWithEmailAndPassword(email, senha)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log('Usuário logado:', user.email);
 
       erroLogin.textContent = 'Usuario Logado com sucesso!';
       erroLogin.classList.remove('erroVermelho', 'esconder');
