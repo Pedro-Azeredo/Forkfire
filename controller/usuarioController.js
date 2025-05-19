@@ -1,5 +1,4 @@
 const databaseRef = firebase.database().ref('usuarios');
-
 const fotoPerfilInput = document.getElementById('fotoPerfilInput');
 const userIcon = document.querySelector('.fa-user');
 

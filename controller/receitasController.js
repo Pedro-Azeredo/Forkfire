@@ -5,7 +5,6 @@ const receitasRef = db.ref('/receitas');
 const receitaForm = document.getElementById('receitaForm');
 let base64String = null;
 
-
 const categorias = [  
   "Aperitivos",
   "Bebidas",
@@ -137,8 +136,9 @@ function buscarReceitas(categoriaDesejada = null) {
 
   // Cria o botão de voltar
   const voltarBtn = document.createElement('button');
-  voltarBtn.textContent = '← Voltar para Categorias';
+  voltarBtn.textContent = 'Voltar para Categorias';
   voltarBtn.className = 'voltar-btn';
+  voltarBtn.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar para Categorias';
   voltarBtn.onclick = () => {
     document.querySelector('.receitas-container').style.display = 'none';
     renderizarCategorias();
@@ -211,6 +211,11 @@ function renderizarReceitas(receitas, categoriaDesejada = null) {
           </div>
         `;
         
+        // Adiciona evento de clique para mostrar detalhes
+        card.addEventListener('click', () => {
+          mostrarDetalhesReceita(receita);
+        });
+        
         receitasContent.appendChild(card);
       });
     });
@@ -248,6 +253,55 @@ function renderizarCategorias() {
     
     categoriasContainer.appendChild(categoriaElement);
   });
+}
+
+// mostras os detalhes da receita
+function mostrarDetalhesReceita(receita) {
+  const detalhesContainer = document.querySelector('.receita-detalhes-container');
+  const detalhesContent = document.querySelector('.receita-detalhes');
+  
+  // Formata a data
+  const dataCriacao = new Date(Number(receita.dataCriacao));
+  const dataFormatada = dataCriacao.toLocaleDateString('pt-BR');
+  
+  // Preenche os detalhes
+  detalhesContent.innerHTML = `
+    <button class="voltar-btn" id="voltarReceitas">
+      <i class="fas fa-arrow-left"></i> Voltar para Receitas
+    </button>
+
+    <div class="receita-detalhes-contorno">
+      ${receita.foto ? `<img src="${receita.foto}" alt="${receita.titulo}" class="receita-detalhes-imagem">` : ''}
+      <h1 class="receita-detalhes-titulo">${receita.titulo}</h1>
+    </div>
+      
+      <div class="receita-detalhes-meta">
+        <span><i class="fas fa-clock"></i> <p>${receita.tempoPreparo} min</p></span>
+        <span><i class="fas fa-calendar-alt"></i> <p>${dataFormatada}</p></span>
+        <span><i class="fas fa-user"></i> <p>${receita.criadoPor || 'Anônimo'}</p></span>
+        <span><i class="fas fa-tag"></i> <p>${receita.categoria}</p></span>
+      </div>
+      
+      <div class="receita-detalhes-section">
+        <h3>Ingredientes</h3>
+        <div class="receita-detalhes-ingredientes">${receita.ingredientes}</div>
+      </div>
+      
+      <div class="receita-detalhes-section">
+        <h3>Modo de Preparo</h3>
+        <div class="receita-detalhes-preparo">${receita.modoPreparo}</div>
+      </div>
+  `;
+  
+  // Configura o botão de voltar
+  document.getElementById('voltarReceitas').addEventListener('click', () => {
+    detalhesContainer.style.display = 'none';
+    document.querySelector('.receitas-container').style.display = 'block';
+  });
+  
+  // Mostra os detalhes e esconde a lista
+  detalhesContainer.style.display = 'block';
+  document.querySelector('.receitas-container').style.display = 'none';
 }
 
 // Inicialização

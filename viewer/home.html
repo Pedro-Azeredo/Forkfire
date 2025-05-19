@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../viewer/static/nav.css"/>
     <link rel="stylesheet" href="../viewer/static/card.css"/>
     <link rel="stylesheet" href="../viewer/static/categoria.css"/>
+    <link rel="stylesheet" href="../viewer/static/receita_detalhada.css"/>
     <link
       rel="icon"
       href="/forkfire/assets/images/favicon.ico"
@@ -123,6 +124,7 @@
               id="tempoPreparo"
               name="tempoPreparo"
               min="1"
+              max="438000000"
               placeholder="Ex: 30"
               required
             />
@@ -144,6 +146,11 @@
     <!-- Onde ficam aninhadas as receitas -->
     <div class="receitas-container">
       <div id="grade-receitas" class="grade-receitas"></div>
+    </div>
+
+    <!-- Onde fica os detalhes das receitas -->
+    <div class="receita-detalhes-container">
+      <div class="receita-detalhes"></div>
     </div>
 
     <!-- Animação de carregamento -->
