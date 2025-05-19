@@ -7,9 +7,9 @@
     "lifestyle",
     "productivity"
   ],
-  "start_url": "/viewer",
-  "scope": "/",
-  "id": "/",
+  "start_url": "forkfire/viewer",
+  "scope": "/forkfire",
+  "id": "/forkfire",
   "shortcuts": [
     {
       "name": "Início",
@@ -102,11 +102,8 @@
       "label": "Tela principal do ForkFire"
     }
   ],
-  "display": "fullscreen",
-  "display_override": [
-    "fullscreen",
-    "window-controls-overlay"
-  ],
+  "display": "standalone",
+  "display_override": ["standalone", "fullscreen"],
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
   "theme_color": "#ff4b2b",
