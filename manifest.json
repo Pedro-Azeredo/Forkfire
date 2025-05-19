@@ -55,22 +55,15 @@
   
   "screenshots": [
     {
-      "src": "/screenshots/screenshot1-512x512.png",
+      "src": "forkfire/assets/images/screenshots/screenshot1-512x512.png",
       "sizes": "512x512",
       "type": "image/png",
       "platform": "wide",
       "label": "Tela principal do ForkFire"
-    },
-    {
-      "src": "/screenshots/screenshot2-1024x768.png",
-      "sizes": "1024x768",
-      "type": "image/png",
-      "platform": "wide",
-      "label": "Visualização de receita"
     }
   ],
   
-  "display": "standalone",
+  "display": "fullscreen",
   "display_override": ["window-control-overlay", "minimal-ui"],
   "orientation": "portrait-primary",
   "background_color": "#ffffff",
