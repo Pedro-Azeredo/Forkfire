@@ -5,6 +5,7 @@ const receitasRef = db.ref('/receitas');
 const receitaForm = document.getElementById('receitaForm');
 let base64String = null;
 
+
 const categorias = [  
   "Todos",
   "Aperitivos",
@@ -233,7 +234,7 @@ function buscarTodasReceitas() {
   });
 }
 
-//renderiza as receitas na tela passando receota e categoria
+// renderiza as receitas na tela passando receita e categoria
 function renderizarReceitas(receitas, categoriaDesejada = null) {
   const receitasContent = document.getElementById('receitas-content');
   const loader = document.getElementById('loader');
@@ -319,6 +320,7 @@ function renderizarCategorias() {
 
 // mostras os detalhes da receita
 function mostrarDetalhesReceita(receita) {
+  window.currentRecipe = receita;
   const detalhesContainer = document.querySelector('.receita-detalhes-container');
   const detalhesContent = document.querySelector('.receita-detalhes');
   
@@ -359,8 +361,34 @@ function mostrarDetalhesReceita(receita) {
         <h3>Modo de Preparo</h3>
         <div class="receita-detalhes-preparo">${receita.modoPreparo}</div>
       </div>
+
+      <div class="avaliacao-container">
+        <h3>Avaliações</h3>
+        <div class="form-avaliacao">
+          <ul class="avaliacao">
+            <li class="star-icon" data-avaliacao="5" onclick="obterEstrela(event)">★</li>
+            <li class="star-icon" data-avaliacao="4" onclick="obterEstrela(event)">★</li>
+            <li class="star-icon" data-avaliacao="3" onclick="obterEstrela(event)">★</li>
+            <li class="star-icon" data-avaliacao="2" onclick="obterEstrela(event)">★</li>
+            <li class="star-icon" data-avaliacao="1" onclick="obterEstrela(event)">★</li>
+          </ul>
+          <textarea
+              class="comentario"
+              name="comentario"
+              rows="5"
+              placeholder="Deixe aqui seu comentário..."
+              required
+              maxlength="200"
+          ></textarea>
+          <button id="enviarAvaliacao" onclick="enviarAvaliacao()">Enviar Avaliação</button>
+        </div>
+        <div class="avaliacoes-lista">
+          <h4>Comentários</h4>
+          <ul id="listaAvaliacoes">
+          </ul>
+      </div>
     `;
-    
+
     // Configura o botão de voltar
     document.getElementById('voltarReceitas').addEventListener('click', () => {
       detalhesContainer.style.display = 'none';
@@ -370,6 +398,8 @@ function mostrarDetalhesReceita(receita) {
     // Mostra os detalhes e esconde a lista
     detalhesContainer.style.display = 'block';
     document.querySelector('.receitas-container').style.display = 'none';
+
+    carregarAvaliacoes(receita);
     
   }).catch((error) => {
     console.error("Erro ao buscar nome do usuário:", error);

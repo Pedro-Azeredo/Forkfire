@@ -15,6 +15,7 @@ const FILES_TO_CACHE = [
   "../viewer/static/categoria.css",
   "../viewer/static/style.css",
   "../viewer/static/receita_detalhada.css",
+  "../viewer/static/avaliacao.css",
   
   // JavaScript
   "firebase-init.js",

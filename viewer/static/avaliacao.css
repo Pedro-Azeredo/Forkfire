@@ -1,0 +1,87 @@
+.avaliacao-container {
+    margin-top: 50px;
+}
+
+.avaliacao-container h3 {
+    margin-bottom: 0;
+}
+
+.avaliacao {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  flex-direction: row-reverse;
+  justify-content: flex-end;
+  margin: 10px 0px;
+}
+
+.star-icon {
+  font-size: 2rem;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-icon.ativo {
+  color: #ff416c;
+}
+
+.star-icon:hover,
+.star-icon:hover ~ .star-icon {
+  color: #ff416c;
+}
+
+.comentario{
+    margin: 0;
+    border: 1px solid #ff4b2b;
+}
+
+#enviarAvaliacao{
+    margin-top: 10px;
+    background: linear-gradient(to right, #ff4b2b, #ff416c);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 15px;
+}
+
+.avaliacao-contorno{
+    border: 1px solid gray;
+    padding: 10px 10px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.avaliacao-header{
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+#listaAvaliacoes{
+    list-style: none;
+    padding: 0;
+}
+
+.perfilAvaliacao{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.avaliacao-data{
+    font-size: 0.8rem;
+    color: gray;
+}
+
+.avaliacao-estrelas{
+    margin: 5px 0;
+    color: #ff416c;
+    font-size: 1.4rem;
+}
+
+
+  
